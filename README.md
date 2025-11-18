@@ -200,7 +200,7 @@ Este proyecto es privado y de uso exclusivo.
 
 ## 👥 Autor
 
-Luis M. Guber
+Luis Miguek Gonzalez 
 
 ---
 
