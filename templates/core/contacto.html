@@ -11,27 +11,33 @@
             <div class="card">
                 <div class="card-body">
                     <!-- Formulario de Contacto -->
-                    <form method="post">
+                    <form method="post" novalidate>
                         {% csrf_token %}
                         
                         <div class="mb-3">
-                            <label for="nombre" class="form-label">Nombre</label>
-                            <input type="text" class="form-control" id="nombre" name="nombre" required>
+                            <label for="nombre" class="form-label">Nombre <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" required 
+                                   placeholder="Tu nombre completo">
                         </div>
                         
                         <div class="mb-3">
-                            <label for="email" class="form-label">Correo Electrónico</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
+                            <label for="email" class="form-label">Correo Electrónico <span class="text-danger">*</span></label>
+                            <input type="email" class="form-control" id="email" name="email" required
+                                   placeholder="ejemplo@correo.com"
+                                   pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}">
+                            <small class="form-text text-muted">Ingrese un correo válido (ejemplo: nombre@dominio.com)</small>
                         </div>
                         
                         <div class="mb-3">
-                            <label for="asunto" class="form-label">Asunto</label>
-                            <input type="text" class="form-control" id="asunto" name="asunto" required>
+                            <label for="asunto" class="form-label">Asunto <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="asunto" name="asunto" required
+                                   placeholder="Motivo de tu mensaje">
                         </div>
                         
                         <div class="mb-3">
-                            <label for="mensaje" class="form-label">Mensaje</label>
-                            <textarea class="form-control" id="mensaje" name="mensaje" rows="5" required></textarea>
+                            <label for="mensaje" class="form-label">Mensaje <span class="text-danger">*</span></label>
+                            <textarea class="form-control" id="mensaje" name="mensaje" rows="5" required
+                                      placeholder="Escribe tu mensaje aquí..."></textarea>
                         </div>
                         
                         <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
@@ -46,34 +52,66 @@
                 <div class="card-body">
                     <h4 class="card-title">Información de Contacto</h4>
                     
+                    {% if configuracion.contacto_direccion %}
                     <div class="mb-3">
-                        <i class="fas fa-map-marker-alt me-2"></i>
-                        <span>Dirección de la Hermandad</span>
+                        <i class="fas fa-map-marker-alt me-2 text-primary"></i>
+                        <span>{{ configuracion.contacto_direccion }}</span>
                     </div>
+                    {% endif %}
                     
+                    {% if configuracion.contacto_telefono %}
                     <div class="mb-3">
-                        <i class="fas fa-phone me-2"></i>
-                        <span>Teléfono de contacto</span>
+                        <i class="fas fa-phone me-2 text-primary"></i>
+                        <span>{{ configuracion.contacto_telefono }}</span>
                     </div>
+                    {% endif %}
                     
+                    {% if configuracion.contacto_email %}
                     <div class="mb-3">
-                        <i class="fas fa-envelope me-2"></i>
-                        <span>correo@hmsp.cl</span>
+                        <i class="fas fa-envelope me-2 text-primary"></i>
+                        <a href="mailto:{{ configuracion.contacto_email }}" class="text-decoration-none">
+                            {{ configuracion.contacto_email }}
+                        </a>
                     </div>
+                    {% endif %}
+                    
+                    {% if configuracion.contacto_horario %}
+                    <div class="mb-3">
+                        <i class="fas fa-clock me-2 text-primary"></i>
+                        <strong>Horario:</strong><br>
+                        <span class="ms-4">{{ configuracion.contacto_horario|linebreaks }}</span>
+                    </div>
+                    {% endif %}
                     
                     <!-- Redes Sociales -->
+                    {% if configuracion.facebook_url or configuracion.instagram_url or configuracion.youtube_url or configuracion.twitter_url %}
                     <h5 class="mt-4">Síguenos en:</h5>
                     <div class="social-links">
-                        <a href="#" class="me-3 text-decoration-none">
-                            <i class="fab fa-facebook fa-2x"></i>
+                        {% if configuracion.facebook_url %}
+                        <a href="{{ configuracion.facebook_url }}" target="_blank" class="me-3 text-decoration-none">
+                            <i class="fab fa-facebook fa-2x text-primary"></i>
                         </a>
-                        <a href="#" class="me-3 text-decoration-none">
-                            <i class="fab fa-instagram fa-2x"></i>
+                        {% endif %}
+                        
+                        {% if configuracion.instagram_url %}
+                        <a href="{{ configuracion.instagram_url }}" target="_blank" class="me-3 text-decoration-none">
+                            <i class="fab fa-instagram fa-2x text-danger"></i>
                         </a>
-                        <a href="#" class="me-3 text-decoration-none">
-                            <i class="fab fa-youtube fa-2x"></i>
+                        {% endif %}
+                        
+                        {% if configuracion.youtube_url %}
+                        <a href="{{ configuracion.youtube_url }}" target="_blank" class="me-3 text-decoration-none">
+                            <i class="fab fa-youtube fa-2x text-danger"></i>
                         </a>
+                        {% endif %}
+                        
+                        {% if configuracion.twitter_url %}
+                        <a href="{{ configuracion.twitter_url }}" target="_blank" class="me-3 text-decoration-none">
+                            <i class="fab fa-twitter fa-2x text-info"></i>
+                        </a>
+                        {% endif %}
                     </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

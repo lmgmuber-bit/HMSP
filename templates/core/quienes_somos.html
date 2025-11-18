@@ -4,50 +4,56 @@
 {% block content %}
 <!-- Sección de Quienes Somos -->
 <div class="container py-5">
-    <h2 class="text-center mb-4">Quiénes Somos</h2>
+    <h2 class="text-center mb-4">{{ configuracion.quienes_somos_titulo }}</h2>
     
     <div class="row justify-content-center">
         <div class="col-md-10">
+            {% if configuracion.quienes_somos_imagen %}
+            <div class="text-center mb-4">
+                <img src="{{ configuracion.quienes_somos_imagen.url }}" 
+                     alt="{{ configuracion.quienes_somos_titulo }}" 
+                     class="img-fluid rounded shadow"
+                     style="max-height: 400px; object-fit: cover;">
+            </div>
+            {% endif %}
+            
             <div class="card">
                 <div class="card-body">
-                    <h3 class="mb-4">Hermandad Misionera del Santísimo Peregrino de la oración Chile</h3>
+                    <div class="mb-4">
+                        {{ configuracion.quienes_somos_contenido|linebreaks }}
+                    </div>
                     
-                    <div class="mb-4">
-                        <h4>Nuestra Misión</h4>
-                        <p>
-                            La Hermandad Misionera del Santísimo Peregrino es una comunidad católica dedicada a la 
-                            oración y la evangelización. Nuestro principal objetivo es llevar el mensaje de Cristo 
-                            a través de la oración y la acción misionera.
-                        </p>
+                    <!-- Historia -->
+                    {% if configuracion.historia_contenido %}
+                    <div class="mb-4 mt-5" id="historia">
+                        <h3>{{ configuracion.historia_titulo }}</h3>
+                        {% if configuracion.historia_imagen %}
+                        <div class="text-center mb-3">
+                            <img src="{{ configuracion.historia_imagen.url }}" 
+                                 alt="{{ configuracion.historia_titulo }}" 
+                                 class="img-fluid rounded"
+                                 style="max-height: 300px; object-fit: cover;">
+                        </div>
+                        {% endif %}
+                        {{ configuracion.historia_contenido|linebreaks }}
                     </div>
-
-                    <div class="mb-4">
-                        <h4>Nuestra Visión</h4>
-                        <p>
-                            Ser una comunidad que irradia el amor de Cristo a través de la oración, formando 
-                            discípulos misioneros comprometidos con la evangelización y el servicio a los demás.
-                        </p>
+                    {% endif %}
+                    
+                    <!-- Vocaciones -->
+                    {% if configuracion.vocaciones_contenido %}
+                    <div class="mb-4 mt-5" id="vocaciones">
+                        <h3>{{ configuracion.vocaciones_titulo }}</h3>
+                        {% if configuracion.vocaciones_imagen %}
+                        <div class="text-center mb-3">
+                            <img src="{{ configuracion.vocaciones_imagen.url }}" 
+                                 alt="{{ configuracion.vocaciones_titulo }}" 
+                                 class="img-fluid rounded"
+                                 style="max-height: 300px; object-fit: cover;">
+                        </div>
+                        {% endif %}
+                        {{ configuracion.vocaciones_contenido|linebreaks }}
                     </div>
-
-                    <div class="mb-4">
-                        <h4>Nuestros Valores</h4>
-                        <ul>
-                            <li>Fe y devoción a Cristo Eucaristía</li>
-                            <li>Amor y servicio al prójimo</li>
-                            <li>Compromiso con la oración y la evangelización</li>
-                            <li>Fraternidad y unidad en la comunidad</li>
-                            <li>Formación continua en la fe</li>
-                        </ul>
-                    </div>
-
-                    <div class="mb-4">
-                        <h4>Historia</h4>
-                        <p>
-                            La Hermandad Misionera del Santísimo Peregrino fue fundada con el propósito de 
-                            promover la adoración eucarística y la evangelización. A través de los años, 
-                            hemos crecido como comunidad y extendido nuestra labor misionera por todo Chile.
-                        </p>
-                    </div>
+                    {% endif %}
 
                     <div>
                         <h4>Actividades Principales</h4>

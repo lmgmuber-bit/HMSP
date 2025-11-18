@@ -1,5 +1,5 @@
 from django.views.generic import TemplateView, ListView, DetailView
-from .models import Evento, Testimonio, Oracion, Noticia
+from .models import Evento, Testimonio, Oracion, Noticia, ConfiguracionSitio
 import re
 
 def get_youtube_embed_url(url):
@@ -92,7 +92,12 @@ class HomeView(TemplateView):
         ).order_by('-fecha')[:3]
         
         context['eventos_proximos'] = eventos_proximos
-        context['testimonios_recientes'] = Testimonio.objects.filter(aprobado=True)[:3]
+        # Testimonios destacados (filtrar por aprobado=True, destacado=True y orden > 0)
+        context['testimonios_destacados'] = Testimonio.objects.filter(
+            aprobado=True,
+            destacado=True,
+            orden_destacado__gt=0
+        ).order_by('orden_destacado')[:3]
         # Noticias recientes
         context['noticias_recientes'] = Noticia.objects.all().order_by('-creado')[:4]
         return context
@@ -190,3 +195,66 @@ class NoticiaDetailView(DetailView):
     model = Noticia
     template_name = 'core/noticia_detalle.html'
     context_object_name = 'noticia'
+
+class QuienesSomosView(TemplateView):
+    template_name = 'core/quienes_somos.html'
+
+class ContactoView(TemplateView):
+    template_name = 'core/contacto.html'
+    
+    def post(self, request, *args, **kwargs):
+        from .models import MensajeContacto
+        from django.contrib import messages
+        from django.shortcuts import redirect
+        from django.utils.html import escape
+        import re
+        
+        # Obtener y sanitizar datos del formulario
+        nombre = request.POST.get('nombre', '').strip()
+        email = request.POST.get('email', '').strip()
+        asunto = request.POST.get('asunto', '').strip()
+        mensaje = request.POST.get('mensaje', '').strip()
+        
+        # Validar que todos los campos estén presentes
+        if not all([nombre, email, asunto, mensaje]):
+            messages.error(request, 'Por favor completa todos los campos del formulario.')
+            return redirect('core:contacto')
+        
+        # Validar longitud de campos
+        if len(nombre) > 200 or len(email) > 254 or len(asunto) > 200 or len(mensaje) > 5000:
+            messages.error(request, 'Uno o más campos exceden la longitud máxima permitida.')
+            return redirect('core:contacto')
+        
+        # Validar formato de email
+        email_pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+        if not re.match(email_pattern, email):
+            messages.error(request, 'Por favor ingresa un correo electrónico válido.')
+            return redirect('core:contacto')
+        
+        # Detectar caracteres sospechosos o palabras SQL peligrosas
+        sql_keywords = ['SELECT', 'INSERT', 'UPDATE', 'DELETE', 'DROP', 'CREATE', 'ALTER', 
+                       'EXEC', 'EXECUTE', 'SCRIPT', 'UNION', '--', '/*', '*/', ';--', 'xp_']
+        
+        combined_text = f"{nombre} {asunto} {mensaje}".upper()
+        if any(keyword in combined_text for keyword in sql_keywords):
+            messages.error(request, 'El mensaje contiene contenido no permitido. Por favor revisa tu texto.')
+            return redirect('core:contacto')
+        
+        # Sanitizar datos (escape HTML para prevenir XSS)
+        nombre_sanitizado = escape(nombre)
+        asunto_sanitizado = escape(asunto)
+        mensaje_sanitizado = escape(mensaje)
+        
+        try:
+            # Guardar el mensaje en la base de datos usando ORM (protegido contra SQL injection)
+            MensajeContacto.objects.create(
+                nombre=nombre_sanitizado,
+                email=email.lower(),  # Normalizar email a minúsculas
+                asunto=asunto_sanitizado,
+                mensaje=mensaje_sanitizado
+            )
+            messages.success(request, '¡Gracias por contactarnos! Hemos recibido tu mensaje y te responderemos pronto.')
+        except Exception as e:
+            messages.error(request, 'Ocurrió un error al enviar tu mensaje. Por favor intenta nuevamente.')
+        
+        return redirect('core:contacto')

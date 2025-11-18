@@ -1,0 +1,24 @@
+{% extends "admin/login.html" %}
+
+{% block content %}
+{{ block.super }}
+<style>
+    .password-reset-link {
+        text-align: center;
+        margin-top: 1rem;
+        padding: 1rem;
+    }
+    .password-reset-link a {
+        color: #1a5490;
+        text-decoration: none;
+        font-weight: 500;
+    }
+    .password-reset-link a:hover {
+        text-decoration: underline;
+        color: #0d3d6b;
+    }
+</style>
+<div class="password-reset-link">
+    <a href="{% url 'backoffice:password_reset' %}">¿Olvidaste tu contraseña?</a>
+</div>
+{% endblock %}

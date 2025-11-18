@@ -1,10 +1,10 @@
-/* Estilos base inspirados en vatican.va */
+/* Estilos base basados en el logo HMSP */
 :root {
-    --color-primary: #8B0000;     /* Rojo oscuro vaticano */
-    --color-secondary: #DEB887;   /* Dorado suave */
+    --color-primary: #1a5490;     /* Azul HMSP */
+    --color-secondary: #f4a127;   /* Naranja/Dorado HMSP */
     --color-text: #1a1a1a;        /* Texto principal más oscuro */
     --color-light: #F5F5F5;       /* Fondo claro */
-    --color-accent: #B8860B;      /* Dorado acentuado */
+    --color-accent: #e87d1e;      /* Naranja acentuado */
     --font-primary: 'Crimson Text', serif;
     --font-secondary: 'Lato', sans-serif;
 }
@@ -82,8 +82,8 @@ body {
 .btn.btn-primary,
 a.btn.btn-primary,
 button.btn.btn-primary {
-    background-color: #8b0000 !important;
-    border-color: #8b0000 !important;
+    background-color: #1a5490 !important;
+    border-color: #1a5490 !important;
     color: white !important;
     padding: 0.5rem 1.5rem;
     border-radius: 0;
@@ -99,8 +99,8 @@ button.btn.btn-primary:focus,
 .btn.btn-primary:active,
 a.btn.btn-primary:active,
 button.btn.btn-primary:active {
-    background-color: #a50000 !important;
-    border-color: #a50000 !important;
+    background-color: #0d3d6b !important;
+    border-color: #0d3d6b !important;
     color: white !important;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }

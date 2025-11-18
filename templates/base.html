@@ -32,8 +32,13 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
         <div class="container">
-            <a class="navbar-brand" href="{% url 'core:home' %}">
-                <img src="{% static 'img/logo.svg' %}" alt="HMSP Logo" height="60">
+            <a class="navbar-brand d-flex align-items-center" href="{% url 'core:home' %}">
+                {% if configuracion.logo_principal %}
+                    <img src="{{ configuracion.logo_principal.url }}" alt="HMSP Logo" height="60">
+                {% else %}
+                    <img src="{% static 'img/logo-hmsp.png' %}" alt="HMSP Logo" height="60">
+                {% endif %}
+                <span class="ms-2 ms-md-3 text-primary fw-bold d-none d-sm-inline">Hermanas Servidoras de la Palabra</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -109,10 +114,10 @@
                 <div class="col-md-3">
                     <h5 class="text-primary">Sobre Nosotros</h5>
                     <ul class="footer-links">
-                        <li><a href="{% url 'core:home' %}" class="text-dark">Quiénes Somos</a></li>
-                        <li><a href="#" class="text-dark">Historia</a></li>
-                        <li><a href="#" class="text-dark">Vocaciones</a></li>
-                        <li><a href="#" class="text-dark">Contacto</a></li>
+                        <li><a href="{% url 'core:quienes_somos' %}" class="text-dark">Quiénes Somos</a></li>
+                        <li><a href="{% url 'core:quienes_somos' %}#historia" class="text-dark">Historia</a></li>
+                        <li><a href="{% url 'core:quienes_somos' %}#vocaciones" class="text-dark">Vocaciones</a></li>
+                        <li><a href="{% url 'core:contacto' %}" class="text-dark">Contacto</a></li>
                     </ul>
                 </div>
                 <div class="col-md-3">
@@ -136,24 +141,45 @@
                 <div class="col-md-3">
                     <h5 class="text-primary">Redes Sociales</h5>
                     <ul class="footer-links">
-                        <li><a href="https://www.facebook.com/profile.php?id=100064580510184" class="text-dark"><i class="fab fa-facebook-f text-primary"></i> Facebook</a></li>
-                        <li><a href="#" class="text-dark"><i class="fab fa-instagram text-primary"></i> Instagram</a></li>
-                        <li><a href="#" class="text-dark"><i class="fab fa-youtube text-primary"></i> YouTube</a></li>
-                        <li><a href="#" class="text-dark"><i class="fab fa-whatsapp text-primary"></i> WhatsApp</a></li>
+                        {% if configuracion.facebook_url %}
+                        <li><a href="{{ configuracion.facebook_url }}" target="_blank" class="text-dark"><i class="fab fa-facebook-f text-primary"></i> Facebook</a></li>
+                        {% endif %}
+                        {% if configuracion.instagram_url %}
+                        <li><a href="{{ configuracion.instagram_url }}" target="_blank" class="text-dark"><i class="fab fa-instagram text-primary"></i> Instagram</a></li>
+                        {% endif %}
+                        {% if configuracion.youtube_url %}
+                        <li><a href="{{ configuracion.youtube_url }}" target="_blank" class="text-dark"><i class="fab fa-youtube text-primary"></i> YouTube</a></li>
+                        {% endif %}
+                        {% if configuracion.twitter_url %}
+                        <li><a href="{{ configuracion.twitter_url }}" target="_blank" class="text-dark"><i class="fab fa-twitter text-primary"></i> Twitter</a></li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
             <!-- Mapa y Dirección -->
             <div class="row mt-4 pb-4">
-                <div class="col-md-6 d-flex flex-column justify-content-center">
-                    <h5 class="text-primary mb-3">Nuestra Ubicación</h5>
-                    <p class="location-text mb-3">
-                        <i class="fas fa-map-marker-alt text-primary me-2"></i>
-                        <strong>Barros Arana 966</strong><br>
-                        <span class="ms-4">San Bernardo, Región Metropolitana</span>
+                <div class="col-md-6 d-flex flex-column justify-content-center bg-primary p-4 rounded">
+                    <h5 class="text-white mb-3">Nuestra Ubicación</h5>
+                    {% if configuracion.contacto_direccion %}
+                    <p class="text-white mb-3">
+                        <i class="fas fa-map-marker-alt me-2" style="color: #10df31;"></i>
+                        {{ configuracion.contacto_direccion|linebreaks }}
                     </p>
+                    {% endif %}
+                    {% if configuracion.contacto_telefono %}
+                    <p class="text-white mb-2">
+                        <i class="fas fa-phone me-2" style="color: #10df31;"></i>
+                        {{ configuracion.contacto_telefono }}
+                    </p>
+                    {% endif %}
+                    {% if configuracion.contacto_email %}
+                    <p class="text-white mb-3">
+                        <i class="fas fa-envelope me-2" style="color: #10df31;"></i>
+                        <a href="mailto:{{ configuracion.contacto_email }}" class="text-white text-decoration-none">{{ configuracion.contacto_email }}</a>
+                    </p>
+                    {% endif %}
                     <a href="https://www.google.com/maps/place/Barros+Arana+966,+8071330+San+Bernardo,+Regi%C3%B3n+Metropolitana" 
-                       class="btn btn-outline-primary" target="_blank">
+                       class="btn d-inline-block text-white" style="background-color: #10df31; border: none; width: fit-content;" target="_blank">
                         <i class="fas fa-directions me-2"></i> Cómo llegar
                     </a>
                 </div>

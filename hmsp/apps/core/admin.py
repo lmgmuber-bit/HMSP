@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Evento, Testimonio, Oracion, Noticia
+from .models import Evento, Testimonio, Oracion, Noticia, ConfiguracionSitio, MensajeContacto
 
 @admin.register(Evento)
 class EventoAdmin(admin.ModelAdmin):
@@ -10,7 +10,12 @@ class EventoAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('titulo',)}
     fieldsets = (
         ('Información Básica', {
-            'fields': ('titulo', 'slug', 'descripcion', 'fecha', 'ubicacion', 'imagen')
+            'fields': ('titulo', 'slug', 'descripcion', 'fecha', 'ubicacion', 'imagen'),
+            'description': '<strong>📸 ESPECIFICACIONES DE IMAGEN:</strong><br>'
+                          '📐 <strong>Dimensiones:</strong> 1200x800 píxeles (carrusel) o 600x400 píxeles (lista)<br>'
+                          '📄 <strong>Formato:</strong> JPG (preferido) o PNG<br>'
+                          '💾 <strong>Tamaño:</strong> Máximo 2MB<br>'
+                          '<em>Tip: Use imágenes horizontales de alta calidad para mejor visualización en el carrusel.</em>'
         }),
         ('Control de Publicación', {
             'fields': ('fecha_inicio_publicacion', 'fecha_fin_publicacion', 'activo', 'orden_carrusel'),
@@ -26,10 +31,22 @@ class EventoAdmin(admin.ModelAdmin):
 
 @admin.register(Testimonio)
 class TestimonioAdmin(admin.ModelAdmin):
-    list_display = ('nombre', 'aprobado', 'creado')
-    list_filter = ('aprobado', 'creado')
+    list_display = ('nombre', 'aprobado', 'destacado', 'orden_destacado', 'creado')
+    list_filter = ('aprobado', 'destacado', 'creado')
+    list_editable = ('destacado', 'orden_destacado')
     search_fields = ('nombre', 'testimonio')
     actions = ['aprobar_testimonios', 'rechazar_testimonios']
+    fieldsets = (
+        ('Información del Testimonio', {
+            'fields': ('nombre', 'testimonio', 'imagen', 'aprobado', 'destacado', 'orden_destacado'),
+            'description': '<strong>📸 ESPECIFICACIONES DE IMAGEN:</strong><br>'
+                          '📐 <strong>Dimensiones:</strong> 400x400 píxeles (cuadrada 1:1)<br>'
+                          '📄 <strong>Formato:</strong> JPG (preferido) o PNG<br>'
+                          '💾 <strong>Tamaño:</strong> Máximo 500KB<br>'
+                          '<em>Tip: Use fotos de rostro centradas con buena iluminación. Los testimonios deben ser aprobados para aparecer en el sitio.</em><br>'
+                          '<strong>⭐ Destacado y Orden:</strong> Marque "Destacado" y asigne orden (1, 2 o 3) para mostrar en la página principal. Use 0 para no destacar.'
+        }),
+    )
 
     def aprobar_testimonios(self, request, queryset):
         queryset.update(aprobado=True)
@@ -51,3 +68,84 @@ class NoticiaAdmin(admin.ModelAdmin):
     list_filter = ('destacada', 'creado')
     search_fields = ('titulo', 'contenido')
     prepopulated_fields = {'slug': ('titulo',)}
+    fieldsets = (
+        ('Contenido de la Noticia', {
+            'fields': ('titulo', 'slug', 'contenido', 'imagen', 'destacada'),
+            'description': '<strong>📸 ESPECIFICACIONES DE IMAGEN:</strong><br>'
+                          '📐 <strong>Dimensiones:</strong> 800x600 píxeles (portada) o 400x300 píxeles (miniatura)<br>'
+                          '📄 <strong>Formato:</strong> JPG (preferido) o PNG<br>'
+                          '💾 <strong>Tamaño:</strong> Máximo 1.5MB<br>'
+                          '<em>Tip: Use imágenes bien iluminadas y de alta calidad. Las noticias destacadas aparecen en la página principal.</em>'
+        }),
+    )
+
+@admin.register(ConfiguracionSitio)
+class ConfiguracionSitioAdmin(admin.ModelAdmin):
+    fieldsets = (
+        ('Logo del Sitio', {
+            'fields': ('logo_principal',),
+            'description': '<strong>ESPECIFICACIONES DEL LOGO:</strong><br>'
+                          '📐 <strong>Dimensiones:</strong> 200x80 píxeles (recomendado) o máximo 300x120 píxeles<br>'
+                          '📄 <strong>Formato:</strong> PNG con fondo transparente (preferido) o JPG<br>'
+                          '💾 <strong>Tamaño:</strong> Máximo 500KB<br>'
+                          '📱 <strong>Visualización:</strong> Se mostrará con altura de 60px en la navegación<br>'
+                          '<em>Tip: Un logo horizontal funciona mejor que uno cuadrado o vertical.</em>'
+        }),
+        ('Quiénes Somos', {
+            'fields': ('quienes_somos_titulo', 'quienes_somos_contenido', 'quienes_somos_imagen'),
+            'description': '<strong>Sección Quiénes Somos</strong><br>'
+                          '📐 <strong>Imagen:</strong> 1200x600 píxeles | Formato: JPG/PNG | Máximo: 2MB'
+        }),
+        ('Historia', {
+            'fields': ('historia_titulo', 'historia_contenido', 'historia_imagen'),
+            'description': '<strong>Sección Historia</strong><br>'
+                          '📐 <strong>Imagen:</strong> 800x500 píxeles | Formato: JPG/PNG | Máximo: 1.5MB'
+        }),
+        ('Vocaciones', {
+            'fields': ('vocaciones_titulo', 'vocaciones_contenido', 'vocaciones_imagen'),
+            'description': '<strong>Sección Vocaciones</strong><br>'
+                          '📐 <strong>Imagen:</strong> 800x500 píxeles | Formato: JPG/PNG | Máximo: 1.5MB'
+        }),
+        ('Información de Contacto', {
+            'fields': ('contacto_direccion', 'contacto_telefono', 'contacto_email', 'contacto_horario'),
+            'description': 'Datos de contacto que aparecen en el sitio'
+        }),
+        ('Redes Sociales', {
+            'fields': ('facebook_url', 'instagram_url', 'youtube_url', 'twitter_url'),
+            'description': 'Enlaces a redes sociales'
+        }),
+    )
+    
+    def has_add_permission(self, request):
+        # Solo permitir una instancia de configuración
+        return not ConfiguracionSitio.objects.exists()
+    
+    def has_delete_permission(self, request, obj=None):
+        # No permitir eliminar la configuración
+        return False
+
+@admin.register(MensajeContacto)
+class MensajeContactoAdmin(admin.ModelAdmin):
+    list_display = ('nombre', 'email', 'asunto', 'leido', 'respondido', 'creado')
+    list_filter = ('leido', 'respondido', 'creado')
+    list_editable = ('leido', 'respondido')
+    search_fields = ('nombre', 'email', 'asunto', 'mensaje')
+    readonly_fields = ('nombre', 'email', 'asunto', 'mensaje', 'creado')
+    date_hierarchy = 'creado'
+    
+    fieldsets = (
+        ('Información del Contacto', {
+            'fields': ('nombre', 'email', 'creado')
+        }),
+        ('Mensaje', {
+            'fields': ('asunto', 'mensaje')
+        }),
+        ('Estado', {
+            'fields': ('leido', 'respondido'),
+            'description': 'Marque como leído cuando haya revisado el mensaje. Marque como respondido cuando ya haya contactado a la persona.'
+        }),
+    )
+    
+    def has_add_permission(self, request):
+        # Los mensajes solo se crean desde el formulario web
+        return False
