@@ -1,0 +1,189 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}HMSP de la Oración Chile{% endblock %}</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+    <link href="{% static 'css/vatican-theme.css' %}" rel="stylesheet">
+    <link href="{% static 'core/css/whatsapp.css' %}" rel="stylesheet">
+    <link href="{% static 'css/map.css' %}" rel="stylesheet">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Top Bar -->
+    <div style="background-color: #faf3f3;" class="py-2">
+        <div class="container">
+            <div class="d-flex justify-content-end">
+                <a href="#" class="text-primary me-3"><i class="fas fa-search"></i></a>
+                <a href="#" class="text-primary"><i class="fas fa-globe"></i> ES</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'core:home' %}">
+                <img src="{% static 'img/logo.svg' %}" alt="HMSP Logo" height="60">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.view_name == 'core:home' %}active{% endif %}" 
+                           href="{% url 'core:home' %}">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if 'eventos' in request.path %}active{% endif %}" 
+                           href="{% url 'core:eventos' %}">Eventos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if 'testimonios' in request.path %}active{% endif %}" 
+                           href="{% url 'core:testimonios' %}">Testimonios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if 'oraciones' in request.path %}active{% endif %}" 
+                           href="{% url 'core:oraciones' %}">Oraciones</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if 'noticias' in request.path %}active{% endif %}" 
+                           href="{% url 'core:noticias' %}">Noticias</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <main class="container">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Botón flotante de WhatsApp -->
+    <div class="whatsapp-float">
+        <a href="https://wa.me/56999817295" target="_blank" title="Contáctanos por WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+
+    <!-- Redes Sociales Flotantes -->
+    <div class="social-float">
+        <a href="#" class="facebook" target="_blank" title="Síguenos en Facebook">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="#" class="instagram" target="_blank" title="Síguenos en Instagram">
+            <i class="fab fa-instagram"></i>
+        </a>
+        <a href="#" class="youtube" target="_blank" title="Suscríbete a nuestro canal">
+            <i class="fab fa-youtube"></i>
+        </a>
+        <a href="#" class="x-social" target="_blank" title="Síguenos en X">
+            <i class="fa-solid fa-x"></i>
+        </a>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer" style="background-color: #f8f1f2;">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <h5 class="text-primary">Sobre Nosotros</h5>
+                    <ul class="footer-links">
+                        <li><a href="{% url 'core:home' %}" class="text-dark">Quiénes Somos</a></li>
+                        <li><a href="#" class="text-dark">Historia</a></li>
+                        <li><a href="#" class="text-dark">Vocaciones</a></li>
+                        <li><a href="#" class="text-dark">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="text-primary">Servicios</h5>
+                    <ul class="footer-links">
+                        <li><a href="{% url 'core:eventos' %}" class="text-dark">Eventos</a></li>
+                        <li><a href="{% url 'core:testimonios' %}" class="text-dark">Testimonios</a></li>
+                        <li><a href="{% url 'core:oraciones' %}" class="text-dark">Oraciones</a></li>
+                        <li><a href="{% url 'core:noticias' %}" class="text-dark">Noticias</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="text-primary">Recursos</h5>
+                    <ul class="footer-links">
+                        <li><a href="#" class="text-dark">Biblioteca de Oraciones</a></li>
+                        <li><a href="#" class="text-dark">Material Espiritual</a></li>
+                        <li><a href="#" class="text-dark">Boletín Mensual</a></li>
+                        <li><a href="#" class="text-dark">Donaciones</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="text-primary">Redes Sociales</h5>
+                    <ul class="footer-links">
+                        <li><a href="https://www.facebook.com/profile.php?id=100064580510184" class="text-dark"><i class="fab fa-facebook-f text-primary"></i> Facebook</a></li>
+                        <li><a href="#" class="text-dark"><i class="fab fa-instagram text-primary"></i> Instagram</a></li>
+                        <li><a href="#" class="text-dark"><i class="fab fa-youtube text-primary"></i> YouTube</a></li>
+                        <li><a href="#" class="text-dark"><i class="fab fa-whatsapp text-primary"></i> WhatsApp</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Mapa y Dirección -->
+            <div class="row mt-4 pb-4">
+                <div class="col-md-6 d-flex flex-column justify-content-center">
+                    <h5 class="text-primary mb-3">Nuestra Ubicación</h5>
+                    <p class="location-text mb-3">
+                        <i class="fas fa-map-marker-alt text-primary me-2"></i>
+                        <strong>Barros Arana 966</strong><br>
+                        <span class="ms-4">San Bernardo, Región Metropolitana</span>
+                    </p>
+                    <a href="https://www.google.com/maps/place/Barros+Arana+966,+8071330+San+Bernardo,+Regi%C3%B3n+Metropolitana" 
+                       class="btn btn-outline-primary" target="_blank">
+                        <i class="fas fa-directions me-2"></i> Cómo llegar
+                    </a>
+                </div>
+                <div class="col-md-6">
+                    <div class="map-container" style="height: 250px; width: 100%;">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3324.9897504777387!2d-70.7040843!3d-33.5931789!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662d946f8e2a1b1%3A0x43b3bfa30a876916!2sBarros%20Arana%20966%2C%208071330%20San%20Bernardo%2C%20Regi%C3%B3n%20Metropolitana!5e0!3m2!1ses!2scl!4v1696305234567!5m2!1ses!2scl"
+                            width="100%" 
+                            height="100%" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4 pt-3 border-top border-primary">
+                <div class="col-12 text-center">
+                    <p class="mb-0 text-muted">&copy; {% now "Y" %} HMSP de la Oración Chile | Todos los derechos reservados</p>
+                </div>
+            </div>
+        </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="{% static 'js/main.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

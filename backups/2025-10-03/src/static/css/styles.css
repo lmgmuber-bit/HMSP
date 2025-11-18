@@ -1,0 +1,139 @@
+/* Estilos base inspirados en vatican.va */
+:root {
+    --color-primary: #8B0000;     /* Rojo oscuro vaticano */
+    --color-secondary: #DEB887;   /* Dorado suave */
+    --color-text: #1a1a1a;        /* Texto principal más oscuro */
+    --color-light: #F5F5F5;       /* Fondo claro */
+    --color-accent: #B8860B;      /* Dorado acentuado */
+    --font-primary: 'Crimson Text', serif;
+    --font-secondary: 'Lato', sans-serif;
+}
+
+/* Estilos generales */
+body {
+    font-family: var(--font-primary);
+    color: var(--color-text);
+    line-height: 1.6;
+    background-color: var(--color-light);
+}
+
+/* Header y navegación */
+.navbar {
+    background-color: white !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar-brand img {
+    height: 60px;
+}
+
+.nav-link {
+    font-family: var(--font-secondary);
+    color: var(--color-text) !important;
+    font-weight: 600;
+    padding: 0.5rem 1rem !important;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--color-primary) !important;
+}
+
+.nav-link.active {
+    color: var(--color-primary) !important;
+    border-bottom: 2px solid var(--color-primary);
+}
+
+/* Sección principal */
+.hero-section {
+    background-color: white;
+    padding: 3rem 0;
+    border-bottom: 3px solid var(--color-secondary);
+}
+
+.section-title {
+    color: var(--color-primary);
+    font-family: var(--font-secondary);
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+/* Tarjetas de contenido */
+.content-card {
+    background: white;
+    border: none;
+    border-radius: 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.content-card:hover {
+    transform: translateY(-5px);
+}
+
+.content-card .card-title {
+    color: var(--color-primary);
+    font-family: var(--font-secondary);
+    font-weight: 600;
+}
+
+/* Botones */
+.btn-primary {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: white !important;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #6b0000;
+    border-color: #6b0000;
+    color: white !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Footer */
+.footer {
+    background-color: var(--color-primary);
+    color: white;
+    padding: 3rem 0;
+    margin-top: 3rem;
+}
+
+.footer h5 {
+    color: var(--color-secondary);
+    font-family: var(--font-secondary);
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-links li a:hover {
+    color: var(--color-secondary);
+}
+
+/* Utilidades */
+.text-primary {
+    color: var(--color-primary) !important;
+}
+
+.bg-primary {
+    background-color: var(--color-primary) !important;
+}
+
+.border-primary {
+    border-color: var(--color-primary) !important;
+}

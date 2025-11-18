@@ -1,0 +1,112 @@
+.whatsapp-float {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 1000;
+}
+
+.whatsapp-float a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    background-color: #25d366;
+    color: white;
+    border-radius: 50%;
+    text-decoration: none;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+    font-size: 36px;
+    transition: all 0.3s ease;
+}
+
+.whatsapp-float a:hover {
+    background-color: #128C7E;
+    transform: scale(1.1);
+}
+
+/* Estilos para redes sociales flotantes */
+.social-float {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: -2px 2px 10px rgba(0,0,0,0.1);
+    border-radius: 10px 0 0 10px;
+}
+
+.social-float a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 20px;
+}
+
+.social-float a:hover {
+    transform: translateX(-5px);
+}
+
+.social-float .facebook {
+    background-color: #1877f2;
+}
+
+.social-float .x-social {
+    background-color: #000000;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.social-float .x-social i {
+    font-size: 1.2em;
+    transform: scale(1.2);
+}
+
+.social-float .instagram {
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+}
+
+.social-float .youtube {
+    background-color: #ff0000;
+}
+
+.social-float a:hover.facebook {
+    box-shadow: -3px 3px 10px rgba(24, 119, 242, 0.4);
+}
+
+.social-float a:hover.x-social {
+    box-shadow: -3px 3px 10px rgba(0, 0, 0, 0.4);
+    background-color: #0f0f0f;
+}
+
+.social-float a:hover.x-social i {
+    transform: scale(1.3);
+    transition: transform 0.3s ease;
+}
+
+.social-float a:hover.instagram {
+    box-shadow: -3px 3px 10px rgba(214, 36, 159, 0.4);
+}
+
+.social-float a:hover.youtube {
+    box-shadow: -3px 3px 10px rgba(255, 0, 0, 0.4);
+}
+
+@media (max-width: 768px) {
+    .social-float {
+        display: none;
+    }
+}

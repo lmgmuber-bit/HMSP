@@ -1,0 +1,45 @@
+/* Estilos para la sección de testimonios */
+.card {
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.blockquote {
+    font-size: 1rem;
+    border-left: 4px solid var(--bs-primary);
+    padding-left: 1rem;
+}
+
+.blockquote p {
+    font-style: italic;
+    line-height: 1.6;
+}
+
+.blockquote-footer {
+    margin-top: 1rem;
+}
+
+.testimonio-imagen {
+    transition: transform 0.3s ease-in-out;
+}
+
+.card:hover .testimonio-imagen {
+    transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+    .blockquote {
+        border-left: none;
+        padding-left: 0;
+        text-align: center;
+    }
+    
+    .blockquote-footer {
+        text-align: center;
+    }
+}

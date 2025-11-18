@@ -1,0 +1,263 @@
+/* Estilos para el carrusel principal */
+.carousel-principal {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    background-color: var(--color-primary);
+    overflow: hidden;
+}
+
+.carousel-principal .carousel-inner {
+    max-height: 600px;
+    background-color: #000;
+}
+
+.carousel-principal .carousel-item {
+    height: 600px;
+    position: relative;
+}
+
+.carousel-principal .carousel-media-container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    background-color: #000;
+}
+
+.carousel-principal .carousel-video-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.carousel-principal .carousel-video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.carousel-principal .youtube-player {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    align-items: center;
+    justify-content: center;
+    background-color: #000;
+}
+
+.carousel-principal .carousel-video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background-color: #000;
+}
+
+.carousel-principal .carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0.8;
+    transform-origin: center;
+    transition: transform 0.3s ease-in-out;
+}
+
+.carousel-principal .carousel-caption {
+    background: rgba(0, 0, 0, 0.6);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 2rem;
+    text-align: left;
+}
+
+.carousel-principal .carousel-caption h2 {
+    color: #fff;
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.carousel-principal .carousel-caption p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.carousel-principal .evento-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.carousel-principal .evento-info i {
+    margin-right: 0.5rem;
+    color: var(--color-secondary);
+}
+
+.carousel-principal .carousel-indicators {
+    margin-bottom: 2rem;
+}
+
+.carousel-principal .carousel-indicators button {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin: 0 5px;
+    background-color: var(--color-secondary);
+}
+
+.carousel-principal .btn-primary {
+    padding: 0.75rem 2rem;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 30px;
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    transition: all 0.3s ease;
+}
+
+.carousel-principal .btn-primary:hover {
+    background-color: var(--color-secondary);
+    border-color: var(--color-secondary);
+    transform: translateY(-2px);
+}
+
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+    .carousel-principal .carousel-item,
+    .carousel-principal .carousel-inner {
+        height: 400px;
+    }
+
+    .carousel-principal .carousel-caption {
+        padding: 1.5rem;
+    }
+
+    .carousel-principal .carousel-caption h2 {
+        font-size: 1.8rem;
+    }
+}
+
+.carousel-principal .carousel-caption p {
+    font-size: 1rem;
+}
+
+.carousel-principal .btn-primary {
+    padding: 0.5rem 1.5rem;
+    font-size: 1rem;
+}
+
+/* Controles del carrusel */
+.carousel-principal .carousel-control-prev,
+.carousel-principal .carousel-control-next {
+    width: 15%;
+    opacity: 1;
+    z-index: 10;
+    background: linear-gradient(90deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%);
+    cursor: pointer;
+}
+
+.carousel-principal .carousel-control-next {
+    background: linear-gradient(-90deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%);
+}
+
+.carousel-principal .carousel-control-prev-icon,
+.carousel-principal .carousel-control-next-icon {
+    width: 3rem;
+    height: 3rem;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 50%;
+    background-size: 50%;
+    transition: all 0.3s ease;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-principal .carousel-control-prev:hover .carousel-control-prev-icon,
+.carousel-principal .carousel-control-next:hover .carousel-control-next-icon {
+    background-color: var(--color-primary);
+    transform: scale(1.1);
+}
+
+.carousel-principal .carousel-control-prev:focus,
+.carousel-principal .carousel-control-next:focus {
+    opacity: 1;
+    outline: none;
+    box-shadow: none;
+}
+
+.carousel-principal .carousel-control-prev:active .carousel-control-prev-icon,
+.carousel-principal .carousel-control-next:active .carousel-control-next-icon {
+    transform: scale(0.95);
+}
+
+.carousel-principal .carousel-control-prev:hover .carousel-control-prev-icon,
+.carousel-principal .carousel-control-next:hover .carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+/* Animaciones y ajustes adicionales */
+.carousel-principal .carousel-image-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(0deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.1) 100%);
+    pointer-events: none;
+}
+
+.carousel-principal .carousel-item.active img {
+    transform: scale(1.05);
+    transition: transform 6s ease-in-out;
+}
+
+.carousel-principal .carousel-indicators {
+    z-index: 3;
+    margin-bottom: 0;
+    bottom: 1rem;
+}
+
+.carousel-principal .carousel-caption {
+    z-index: 2;
+    background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.6) 50%, transparent 100%);
+    padding-top: 4rem;
+    pointer-events: auto;
+}
+
+@media (min-width: 992px) {
+    .carousel-principal .carousel-caption {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .carousel-principal .carousel-control-prev,
+    .carousel-principal .carousel-control-next {
+        opacity: 1;
+        background: rgba(0, 0, 0, 0.3);
+    }
+    
+    .carousel-principal .carousel-control-prev-icon,
+    .carousel-principal .carousel-control-next-icon {
+        width: 2rem;
+        height: 2rem;
+    }
+}

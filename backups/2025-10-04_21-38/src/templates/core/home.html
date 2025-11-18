@@ -1,0 +1,321 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link href="{% static 'css/carousel-principal.css' %}" rel="stylesheet">
+<link href="{% static 'css/carousel-video.css' %}" rel="stylesheet">
+<link href="{% static 'css/quick-links.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<!-- Carrusel Principal de Eventos -->
+<section class="carousel-principal">
+    <div id="carouselEventosPrincipal" class="carousel slide w-100" data-bs-ride="carousel" data-bs-interval="5000" data-bs-pause="hover">
+        <!-- Indicadores -->
+        <div class="carousel-indicators">
+            {% for evento in eventos_carrusel %}
+            <button type="button" data-bs-target="#carouselEventosPrincipal" data-bs-slide-to="{{ forloop.counter0 }}" 
+                    {% if forloop.first %}class="active" aria-current="true"{% endif %} 
+                    aria-label="Slide {{ forloop.counter }}"></button>
+            {% endfor %}
+        </div>
+
+        <!-- Slides -->
+        <div class="carousel-inner">
+            {% for evento in eventos_carrusel %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                <div class="carousel-media-container">
+                    {% if evento.preferencia_visualizacion == 'video' %}
+                    {% if evento.tipo_multimedia == 'video_youtube' and evento.video_youtube_url %}
+                        <div class="carousel-video-container">
+                            <iframe class="carousel-video youtube-player"
+                                src="{{ evento.video_youtube_url }}?autoplay=0&controls=1&showinfo=0&rel=0&loop=1&playlist={{ evento.video_youtube_url|slice:'30:41' }}&mute=1"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                    {% elif evento.tipo_multimedia == 'video_local' and evento.video_local %}
+                        <div class="carousel-video-container">
+                            {% if debug %}
+                            <!-- Debug Info -->
+                            <div class="debug-info" style="display: none;">
+                                <p>Video Path: {{ evento.video_local.path }}</p>
+                                <p>Video URL: {{ evento.video_local.url }}</p>
+                                <p>Video Size: {{ evento.video_local.size|filesizeformat }}</p>
+                            </div>
+                            {% endif %}
+                            <div class="video-controls">
+                                <button class="btn btn-sm btn-light toggle-audio" title="Toca para activar/desactivar el audio">
+                                    <i class="fas fa-volume-mute"></i>
+                                </button>
+                                <div class="audio-tooltip">
+                                    <span class="d-none d-md-inline">Click</span>
+                                    <span class="d-md-none">Toca</span>
+                                    para activar el audio
+                                </div>
+                            </div>
+                            <div class="video-overlay"></div>
+                            <video class="carousel-video local-video" preload="auto" autoplay loop playsinline muted>
+                                <source src="{{ evento.video_local.url }}" type="video/mp4">
+                                <p>Tu navegador no soporta la reproducción de videos.</p>
+                                <p>URL del video: {{ evento.video_local.url }}</p>
+                            </video>
+                        </div>
+                    {% else %}
+                        {% if evento.imagen %}
+                            <img src="{{ evento.imagen.url }}" class="d-block w-100" alt="{{ evento.titulo }}" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}">
+                        {% else %}
+                            <img src="{% static 'img/defaults/event-default.svg' %}" class="d-block w-100" alt="Hermanas Misioneras Servidoras de la Palabra" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}">
+                        {% endif %}
+                    {% endif %}
+                {% else %}
+                    {% if evento.imagen %}
+                        <img src="{{ evento.imagen.url }}" class="d-block w-100" alt="{{ evento.titulo }}" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}">
+                    {% elif evento.tipo_multimedia == 'video_youtube' and evento.video_youtube_url %}
+                        <div class="carousel-video-container">
+                            <iframe class="carousel-video youtube-player"
+                                src="{{ evento.video_youtube_url }}?autoplay=0&controls=1&showinfo=0&rel=0&loop=1&playlist={{ evento.video_youtube_url|slice:'30:41' }}&mute=1"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                    {% elif evento.tipo_multimedia == 'video_local' and evento.video_local %}
+                        <div class="carousel-video-container">
+                            <div class="video-controls">
+                                <button class="btn btn-sm btn-light toggle-audio" title="Toca para activar/desactivar el audio">
+                                    <i class="fas fa-volume-mute"></i>
+                                </button>
+                                <div class="audio-tooltip">
+                                    <span class="d-none d-md-inline">Click</span>
+                                    <span class="d-md-none">Toca</span>
+                                    para activar el audio
+                                </div>
+                            </div>
+                            <div class="video-overlay"></div>
+                            <video class="carousel-video local-video" preload="auto" autoplay loop playsinline muted>
+                                <source src="{{ evento.video_local.url }}" type="video/mp4">
+                                <p>Tu navegador no soporta la reproducción de videos.</p>
+                                <p>URL del video: {{ evento.video_local.url }}</p>
+                            </video>
+                        </div>
+                    {% else %}
+                        <img src="{% static 'img/defaults/event-default.svg' %}" class="d-block w-100" alt="Hermanas Misioneras Servidoras de la Palabra" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}">
+                    {% endif %}
+                {% endif %}
+                </div>
+                <div class="carousel-caption">
+                    <h2>{{ evento.titulo }}</h2>
+                    <p>{{ evento.descripcion|truncatewords:30 }}</p>
+                    <div class="evento-info">
+                        <div class="me-4">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>{{ evento.ubicacion }}</span>
+                        </div>
+                        <div>
+                            <i class="far fa-calendar-alt"></i>
+                            <span>{{ evento.fecha|date:"d/m/Y H:i" }}</span>
+                        </div>
+                    </div>
+                    <a href="{% url 'core:evento_detalle' evento.slug %}" class="btn btn-primary">
+                        Más Información <i class="fas fa-arrow-right ms-2"></i>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Controles ocultos -->
+        <div class="carousel-control-prev d-none" role="button" data-bs-target="#carouselEventosPrincipal" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Anterior</span>
+        </div>
+        <div class="carousel-control-next d-none" role="button" data-bs-target="#carouselEventosPrincipal" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Siguiente</span>
+        </div>
+    </div>
+</section>
+
+<!-- Quick Links Section -->
+<section class="quick-links py-4 mb-5 bg-light">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-3">
+                <a href="{% url 'core:eventos' %}" class="text-decoration-none">
+                    <div class="content-card text-center p-4">
+                        <i class="fas fa-calendar-alt fa-2x mb-3"></i>
+                        <h4>Eventos</h4>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3">
+                <a href="{% url 'core:oraciones' %}" class="text-decoration-none">
+                    <div class="content-card text-center p-4">
+                        <i class="fas fa-pray fa-2x mb-3"></i>
+                        <h4>Oraciones</h4>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3">
+                <a href="{% url 'core:testimonios' %}" class="text-decoration-none">
+                    <div class="content-card text-center p-4">
+                        <i class="fas fa-comment-dots fa-2x mb-3"></i>
+                        <h4>Testimonios</h4>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3">
+                <a href="{% url 'core:noticias' %}" class="text-decoration-none">
+                    <div class="content-card text-center p-4">
+                        <i class="fas fa-newspaper fa-2x mb-3"></i>
+                        <h4>Noticias</h4>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- Noticias Recientes -->
+<section class="noticias-recientes py-5">
+    <div class="container">
+        <h2 class="section-title text-center mb-5">Últimas Noticias</h2>
+        <div class="row">
+            {% for noticia in noticias_recientes %}
+            <div class="col-md-3 mb-4">
+                <div class="content-card h-100">
+                    {% if noticia.imagen %}
+                    <img src="{{ noticia.imagen.url }}" class="card-img-top" alt="{{ noticia.titulo }}"
+                         style="height: 180px; object-fit: cover;">
+                    {% else %}
+                    <img src="{% static 'img/defaults/noticia-default.svg' %}" class="card-img-top" alt="{{ noticia.titulo }}"
+                         style="height: 180px; object-fit: cover;">
+                    {% endif %}
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">{{ noticia.titulo }}</h5>
+                        <p class="card-text flex-grow-1">{{ noticia.contenido|truncatewords:20 }}</p>
+                        <div class="mt-auto">
+                            <p class="text-muted small mb-2">
+                                <i class="far fa-clock me-1"></i> {{ noticia.creado|date:"d/m/Y H:i" }} hrs.
+                            </p>
+                            <a href="{% url 'core:noticia_detalle' noticia.slug %}" class="btn btn-outline-primary btn-sm">
+                                Leer más <i class="fas fa-arrow-right ms-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-4">
+            <a href="{% url 'core:noticias' %}" class="btn btn-primary">
+                Ver Todas las Noticias <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Más Eventos -->
+<section class="eventos-section py-5 bg-light">
+    <div class="container">
+        <h2 class="section-title text-center mb-5">Otros Eventos</h2>
+        <div class="row">
+            {% for evento in eventos_proximos %}
+            <div class="col-md-4 mb-4">
+                <div class="content-card h-100">
+                    {% if evento.imagen %}
+                    <img src="{{ evento.imagen.url }}" class="card-img-top" alt="{{ evento.titulo }}"
+                         style="height: 200px; object-fit: cover;">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ evento.titulo }}</h5>
+                        <p class="card-text">{{ evento.descripcion|truncatewords:30 }}</p>
+                        <p class="text-muted">
+                            <i class="far fa-calendar"></i> {{ evento.fecha|date:"d/m/Y H:i" }}
+                        </p>
+                        <a href="{% url 'core:evento_detalle' evento.slug %}" class="btn btn-primary">Más Información</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <p class="text-center">No hay más eventos programados.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Testimonios -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-4">Testimonios</h2>
+        <div class="row">
+            {% for testimonio in testimonios_recientes %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <p class="card-text font-italic">
+                            <i class="fas fa-quote-left text-primary me-2"></i>
+                            {{ testimonio.testimonio|truncatewords:50 }}
+                            <i class="fas fa-quote-right text-primary ms-2"></i>
+                        </p>
+                        <footer class="blockquote-footer mt-3">
+                            {{ testimonio.nombre }}
+                        </footer>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <p class="text-center">Aún no hay testimonios para mostrar.</p>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-4">
+            <a href="{% url 'core:testimonios' %}" class="btn btn-primary">Ver Todos los Testimonios</a>
+        </div>
+    </div>
+</section>
+
+<!-- Llamado a la Acción -->
+<section class="py-5 bg-primary text-white text-center">
+    <div class="container">
+        <h2 class="mb-4">¿Quieres unirte a nuestra comunidad?</h2>
+        <p class="lead mb-4">Únete a nuestros eventos y sé parte de esta hermosa misión</p>
+        <a href="{% url 'core:eventos' %}" class="btn btn-light btn-lg">Explorar Eventos</a>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/carousel-video.js' %}" defer></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var carousel = new bootstrap.Carousel(document.getElementById('carouselEventosPrincipal'), {
+            interval: 5000,
+            keyboard: true,
+            pause: 'hover',
+            wrap: true
+        });
+
+        // Manejadores de eventos para los controles
+        document.querySelector('.carousel-control-prev').addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            carousel.prev();
+        });
+
+        document.querySelector('.carousel-control-next').addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            carousel.next();
+        });
+    });
+</script>
+{% endblock %}

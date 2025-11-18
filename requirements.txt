@@ -1,0 +1,5 @@
+django>=5.2.7
+python-dotenv
+gunicorn
+whitenoise  # para archivos estáticos
+mysqlclient  # para MySQL

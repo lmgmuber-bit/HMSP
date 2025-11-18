@@ -1,0 +1,142 @@
+[
+{
+  "model": "core.evento",
+  "pk": 6,
+  "fields": {
+    "titulo": "Rosario por las Vocaciones",
+    "slug": "rosario-por-las-vocaciones",
+    "descripcion": "Jornada de oración especial por las vocaciones religiosas y misioneras. Rosario meditado y adoración.",
+    "fecha": "2025-11-15T00:19:35Z",
+    "ubicacion": "Santuario Mariano",
+    "imagen": "eventos/Gemini_Generated_Image_kezxkgkezxkgkezx.png",
+    "tipo_multimedia": "ninguno",
+    "video_youtube_url": null,
+    "video_local": "",
+    "preferencia_visualizacion": "imagen",
+    "formulario_url": null,
+    "activo": true,
+    "creado": "2025-10-04T00:19:35.994Z",
+    "modificado": "2025-10-04T19:52:18.496Z"
+  }
+},
+{
+  "model": "core.evento",
+  "pk": 5,
+  "fields": {
+    "titulo": "Taller de Formación Misionera",
+    "slug": "taller-de-formacion-misionera",
+    "descripcion": "Formación intensiva para nuevos misioneros. Aprenderemos sobre evangelización, pastoral y trabajo comunitario.",
+    "fecha": "2025-11-08T00:19:35.942Z",
+    "ubicacion": "Centro de Formación Misionera",
+    "imagen": "",
+    "tipo_multimedia": "ninguno",
+    "video_youtube_url": null,
+    "video_local": "",
+    "preferencia_visualizacion": "imagen",
+    "formulario_url": null,
+    "activo": true,
+    "creado": "2025-10-04T00:19:35.981Z",
+    "modificado": "2025-10-04T00:19:35.981Z"
+  }
+},
+{
+  "model": "core.evento",
+  "pk": 4,
+  "fields": {
+    "titulo": "Celebración del Día de Santa Teresa",
+    "slug": "celebracion-del-dia-de-santa-teresa",
+    "descripcion": "Celebración especial en honor a Santa Teresa. Misa solemne, procesión y compartir comunitario.",
+    "fecha": "2025-11-01T00:19:35Z",
+    "ubicacion": "Capilla Santa Teresa",
+    "imagen": "eventos/Gemini_Generated_Image_a8pk3la8pk3la8pk.png",
+    "tipo_multimedia": "ninguno",
+    "video_youtube_url": null,
+    "video_local": "",
+    "preferencia_visualizacion": "imagen",
+    "formulario_url": null,
+    "activo": true,
+    "creado": "2025-10-04T00:19:35.975Z",
+    "modificado": "2025-10-04T19:49:19.210Z"
+  }
+},
+{
+  "model": "core.evento",
+  "pk": 3,
+  "fields": {
+    "titulo": "Encuentro Juvenil Misionero",
+    "slug": "encuentro-juvenil-misionero",
+    "descripcion": "Jóvenes unidos en la misión. Actividades, talleres y momentos de oración para descubrir tu vocación misionera.",
+    "fecha": "2025-10-25T00:19:35Z",
+    "ubicacion": "Centro Pastoral Juvenil",
+    "imagen": "eventos/Gemini_Generated_Image_z7108pz7108pz710.png",
+    "tipo_multimedia": "ninguno",
+    "video_youtube_url": null,
+    "video_local": "",
+    "preferencia_visualizacion": "imagen",
+    "formulario_url": null,
+    "activo": true,
+    "creado": "2025-10-04T00:19:35.965Z",
+    "modificado": "2025-10-04T19:59:52.009Z"
+  }
+},
+{
+  "model": "core.evento",
+  "pk": 7,
+  "fields": {
+    "titulo": "Ejercicios Espirituales",
+    "slug": "ejercicios-espirituales",
+    "descripcion": "Ejercicios a la luz de la palabra de Dios",
+    "fecha": "2025-10-22T23:00:00Z",
+    "ubicacion": "Barros aranas 66",
+    "imagen": "eventos/538439991_1187360613426611_8495532336150665475_n_GTGV5oS.jpg",
+    "tipo_multimedia": "ninguno",
+    "video_youtube_url": null,
+    "video_local": "",
+    "preferencia_visualizacion": "imagen",
+    "formulario_url": "https://docs.google.com/forms/d/e/1FAIpQLSci5VIzMMbfPU3NtM4ajnY1WDHAXN55_UNS2VewJdcLTeR8Og/viewform",
+    "activo": true,
+    "creado": "2025-10-04T00:27:36.326Z",
+    "modificado": "2025-10-04T04:02:29.341Z"
+  }
+},
+{
+  "model": "core.evento",
+  "pk": 2,
+  "fields": {
+    "titulo": "Jornada de Oración por la Paz",
+    "slug": "jornada-de-oracion-por-la-paz",
+    "descripcion": "Unidos en oración por la paz mundial. Una jornada especial de intercesión y adoración.",
+    "fecha": "2025-10-18T00:19:35Z",
+    "ubicacion": "Santuario Nacional",
+    "imagen": "eventos/Ajustar_imagen_carga_pooJvPT.png",
+    "tipo_multimedia": "video_local",
+    "video_youtube_url": null,
+    "video_local": "eventos/videos/Video_de_WhatsApp_2025-09-29_a_las_20_gt7cgA3.47.50_268e99c0.mp4",
+    "preferencia_visualizacion": "video",
+    "formulario_url": "https://docs.google.com/forms/d/e/1FAIpQLSci5VIzMMbfPU3NtM4ajnY1WDHAXN55_UNS2VewJdcLTeR8Og/viewform",
+    "activo": true,
+    "creado": "2025-10-04T00:19:35.959Z",
+    "modificado": "2025-10-04T19:35:22.917Z"
+  }
+},
+{
+  "model": "core.evento",
+  "pk": 1,
+  "fields": {
+    "titulo": "Retiro Espiritual de Primavera",
+    "slug": "retiro-espiritual-de-primavera",
+    "descripcion": "Un fin de semana de renovación espiritual y conexión con Dios. Incluye meditaciones, oraciones y momentos de reflexión personal.",
+    "fecha": "2025-10-11T00:19:35Z",
+    "ubicacion": "Casa de Retiros Santa María",
+    "imagen": "",
+    "tipo_multimedia": "video_youtube",
+    "video_youtube_url": "https://www.youtube.com/watch?v=pVxm35TCXgs",
+    "video_local": "",
+    "preferencia_visualizacion": "video",
+    "formulario_url": null,
+    "activo": true,
+    "creado": "2025-10-04T00:19:35.947Z",
+    "modificado": "2025-10-04T20:08:38.841Z"
+  }
+}
+]

@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<!-- Vista de Detalle de Evento -->
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card">
+                {% if evento.imagen %}
+                    <img src="{{ evento.imagen.url }}" class="card-img-top" alt="{{ evento.titulo }}">
+                {% else %}
+                    <img src="{% static 'img/defaults/event-default.svg' %}" class="card-img-top" alt="Evento HMSP">
+                {% endif %}
+                
+                <div class="card-body">
+                    <h2 class="card-title">{{ evento.titulo }}</h2>
+                    
+                    <div class="mb-3">
+                        <i class="far fa-calendar me-2"></i>
+                        <span>{{ evento.fecha|date:"d/m/Y H:i" }}</span>
+                    </div>
+                    
+                    {% if evento.ubicacion %}
+                    <div class="mb-3">
+                        <i class="fas fa-map-marker-alt me-2"></i>
+                        <span>{{ evento.ubicacion }}</span>
+                    </div>
+                    {% endif %}
+                    
+                    <div class="card-text mb-4">
+                        {{ evento.descripcion|linebreaks }}
+                    </div>
+                    
+                    {% if evento.requisitos %}
+                    <div class="mb-4">
+                        <h5>Requisitos:</h5>
+                        {{ evento.requisitos|linebreaks }}
+                    </div>
+                    {% endif %}
+                    
+                    {% if evento.informacion_adicional %}
+                    <div class="mb-4">
+                        <h5>Información Adicional:</h5>
+                        {{ evento.informacion_adicional|linebreaks }}
+                    </div>
+                    {% endif %}
+                    
+                    <!-- Botón de Compartir -->
+                    <div class="share-buttons mt-4">
+                        <h5>Compartir evento:</h5>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" 
+                           class="btn btn-primary me-2" target="_blank">
+                            <i class="fab fa-facebook-f"></i> Facebook
+                        </a>
+                        <a href="https://twitter.com/intent/tweet?text={{ evento.titulo }}&url={{ request.build_absolute_uri }}" 
+                           class="btn btn-info me-2" target="_blank">
+                            <i class="fab fa-twitter"></i> Twitter
+                        </a>
+                        <a href="https://wa.me/?text={{ evento.titulo }}%20{{ request.build_absolute_uri }}" 
+                           class="btn btn-success" target="_blank">
+                            <i class="fab fa-whatsapp"></i> WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Botón de Volver -->
+            <div class="text-center mt-4">
+                <a href="{% url 'core:eventos' %}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>Volver a Eventos
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

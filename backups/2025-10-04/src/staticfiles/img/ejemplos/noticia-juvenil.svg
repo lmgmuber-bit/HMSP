@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="800" height="400" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fondo -->
+  <rect width="800" height="400" fill="#fce4ec"/>
+  
+  <!-- Corazón y cruz -->
+  <g transform="translate(350,100)">
+    <!-- Corazón -->
+    <path d="M 0,120 C -100,50 -30,-20 0,20 C 30,-20 100,50 0,120" fill="#c2185b"/>
+    <!-- Cruz -->
+    <rect x="-10" y="30" width="20" height="60" fill="white"/>
+    <rect x="-30" y="50" width="60" height="20" fill="white"/>
+  </g>
+  
+  <!-- Texto -->
+  <text x="400" y="300" text-anchor="middle" fill="#c2185b" 
+        style="font-family: Arial, sans-serif; font-size: 24px; font-weight: bold;">
+    Encuentro Juvenil
+  </text>
+  
+  <!-- Decoración -->
+  <path d="M 300,330 C 350,330 450,330 500,330" stroke="#c2185b" fill="none" stroke-width="3"/>
+</svg>

@@ -1,0 +1,24 @@
+[
+{
+  "model": "core.testimonio",
+  "pk": 2,
+  "fields": {
+    "nombre": "Juan Pérez",
+    "testimonio": "Las hermanas misioneras me ayudaron a redescubrir mi fe en momentos difíciles. Su apoyo y oraciones fueron fundamentales.",
+    "imagen": "testimonios/Retrato_de_hombre_pa.png",
+    "aprobado": true,
+    "creado": "2025-10-04T00:19:36.025Z"
+  }
+},
+{
+  "model": "core.testimonio",
+  "pk": 1,
+  "fields": {
+    "nombre": "María González",
+    "testimonio": "Mi vida cambió completamente después del retiro espiritual. Encontré paz y un nuevo propósito en mi caminar con Dios.",
+    "imagen": "testimonios/Retrato_de_mujer_par.png",
+    "aprobado": true,
+    "creado": "2025-10-04T00:19:36.012Z"
+  }
+}
+]

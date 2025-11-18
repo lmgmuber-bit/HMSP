@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="100" viewBox="0 0 240 100">
+  <style>
+    .logo-text { font: bold 42px 'Crimson Text', serif; fill: #8B0000; }
+    .tagline { font: 16px 'Lato', sans-serif; fill: #666666; letter-spacing: 1px; }
+    .cross { fill: #8B0000; }
+  </style>
+  <rect width="240" height="100" fill="white"/>
+  <!-- Cruz decorativa -->
+  <path class="cross" d="M20 35 h10 v-10 h5 v10 h10 v5 h-10 v10 h-5 v-10 h-10 z"/>
+  <!-- Texto principal -->
+  <text x="55" y="48" class="logo-text">HMSP</text>
+  <!-- Subtítulo -->
+  <text x="55" y="70" class="tagline">HERMANAS MISIONERAS</text>
+  <!-- Cruz decorativa derecha -->
+  <path class="cross" transform="translate(195, 35) scale(0.8)" d="M20 35 h10 v-10 h5 v10 h10 v5 h-10 v10 h-5 v-10 h-10 z"/>
+</svg>

@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/date-inputs.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Sección de Noticias -->
+<div class="container py-5">
+    <h2 class="text-center mb-4">Noticias</h2>
+    
+    <div class="row">
+        {% if object_list %}
+            {% for noticia in object_list %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        {% if noticia.imagen %}
+                            <img src="{{ noticia.imagen.url }}" class="card-img-top" alt="{{ noticia.titulo }}">
+                        {% else %}
+                            <img src="{% static 'img/defaults/noticia-default.svg' %}" class="card-img-top" alt="{{ noticia.titulo }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ noticia.titulo }}</h5>
+                            <p class="card-text">{{ noticia.contenido|truncatewords:30 }}</p>
+                            <p class="text-muted small">
+                                <i class="far fa-clock me-1"></i> {{ noticia.creado|date:"d/m/Y H:i" }} hrs.
+                            </p>
+                            <a href="{% url 'core:noticia_detalle' noticia.slug %}" class="btn btn-primary">Leer más</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-12">
+                <p class="text-center">No hay noticias disponibles en este momento.</p>
+            </div>
+        {% endif %}
+    </div>
+    
+    <!-- Formulario de búsqueda -->
+    <div class="row mt-5 mb-4">
+        <div class="col-md-8 mx-auto">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fas fa-search me-2"></i>Buscar Noticias</h5>
+                </div>
+                <form method="get" class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label for="titulo" class="form-label">Buscar por título</label>
+                            <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Título de la noticia..." value="{{ request.GET.titulo }}">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Rango de fechas</label>
+                            <div class="row g-2">
+                                <div class="col-6">
+                                    <div class="input-group">
+                                        <label class="input-group-text" style="min-width: 60px;">Desde</label>
+                                        <input type="date" class="form-control date-input" id="fecha_desde" name="fecha_desde" 
+                                               value="{{ request.GET.fecha_desde }}" style="min-width: 140px;">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="input-group">
+                                        <label class="input-group-text" style="min-width: 60px;">Hasta</label>
+                                        <input type="date" class="form-control date-input" id="fecha_hasta" name="fecha_hasta" 
+                                               value="{{ request.GET.fecha_hasta }}" style="min-width: 140px;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="fas fa-search me-2"></i>Buscar
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Paginación -->
+    {% if is_paginated %}
+    <nav aria-label="Page navigation" class="mt-4">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo; Anterior</a>
+                </li>
+            {% endif %}
+            
+            {% for num in page_obj.paginator.page_range %}
+                <li class="page-item {% if page_obj.number == num %}active{% endif %}">
+                    <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                </li>
+            {% endfor %}
+            
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente &raquo;</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</div>
+{% endblock %}

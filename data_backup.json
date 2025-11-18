@@ -1,0 +1,681 @@
+﻿[
+{
+  "model": "admin.logentry",
+  "pk": 1,
+  "fields": {
+    "action_time": "2025-10-04T00:27:36.333Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "7",
+    "object_repr": "Ejercicios Espirituales",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 2,
+  "fields": {
+    "action_time": "2025-10-04T01:26:21.582Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "7",
+    "object_repr": "Ejercicios Espirituales",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 3,
+  "fields": {
+    "action_time": "2025-10-04T01:26:48.670Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "7",
+    "object_repr": "Ejercicios Espirituales",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Imagen\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 4,
+  "fields": {
+    "action_time": "2025-10-04T01:27:00.886Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "7",
+    "object_repr": "Ejercicios Espirituales",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Imagen\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 5,
+  "fields": {
+    "action_time": "2025-10-04T01:30:21.345Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "7",
+    "object_repr": "Ejercicios Espirituales",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Imagen\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 6,
+  "fields": {
+    "action_time": "2025-10-04T01:30:32.985Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "7",
+    "object_repr": "Ejercicios Espirituales",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Imagen\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 7,
+  "fields": {
+    "action_time": "2025-10-04T02:14:08.553Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "1",
+    "object_repr": "Retiro Espiritual de Primavera",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Video youtube url\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 8,
+  "fields": {
+    "action_time": "2025-10-04T02:50:51.651Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "1",
+    "object_repr": "Retiro Espiritual de Primavera",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 9,
+  "fields": {
+    "action_time": "2025-10-04T02:53:49.797Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "1",
+    "object_repr": "Retiro Espiritual de Primavera",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Tipo multimedia\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 10,
+  "fields": {
+    "action_time": "2025-10-04T03:04:57.743Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "2",
+    "object_repr": "Jornada de Oraci├│n por la Paz",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Tipo multimedia\", \"Video local\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 11,
+  "fields": {
+    "action_time": "2025-10-04T03:14:04.085Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "6",
+    "object_repr": "Celebraci├│n del Aniversario de la Congregaci├│n",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Contenido\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 12,
+  "fields": {
+    "action_time": "2025-10-04T04:02:29.358Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "7",
+    "object_repr": "Ejercicios Espirituales",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"URL Formulario Google\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 13,
+  "fields": {
+    "action_time": "2025-10-04T04:09:17.318Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "1",
+    "object_repr": "Retiro Espiritual de Primavera",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Tipo multimedia\", \"Video youtube url\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 14,
+  "fields": {
+    "action_time": "2025-10-04T04:09:42.540Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "2",
+    "object_repr": "Jornada de Oraci├│n por la Paz",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Tipo multimedia\", \"Video local\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 15,
+  "fields": {
+    "action_time": "2025-10-04T04:10:06.860Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "2",
+    "object_repr": "Jornada de Oraci├│n por la Paz",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"URL Formulario Google\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 16,
+  "fields": {
+    "action_time": "2025-10-04T04:21:40.518Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "1",
+    "object_repr": "Nueva Casa de Oraci├│n Inaugurada",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Imagen\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 17,
+  "fields": {
+    "action_time": "2025-10-04T04:21:48.907Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "5",
+    "object_repr": "Encuentro Internacional de J├│venes Misioneros",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Imagen\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 18,
+  "fields": {
+    "action_time": "2025-10-04T04:21:55.620Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "4",
+    "object_repr": "Bendici├│n de Nueva Capilla en Comunidad Rural",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Imagen\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 19,
+  "fields": {
+    "action_time": "2025-10-04T04:22:02.141Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "2",
+    "object_repr": "Exitosa Misi├│n en Comunidades Rurales",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Imagen\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 20,
+  "fields": {
+    "action_time": "2025-10-04T04:27:02.428Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "2",
+    "object_repr": "Testimonio de Juan P├®rez",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Imagen\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 21,
+  "fields": {
+    "action_time": "2025-10-04T04:29:52.083Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "1",
+    "object_repr": "Testimonio de Mar├¡a Gonz├ílez",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Imagen\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 22,
+  "fields": {
+    "action_time": "2025-10-04T19:30:17.503Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "2",
+    "object_repr": "Jornada de Oraci├│n por la Paz",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Imagen\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 23,
+  "fields": {
+    "action_time": "2025-10-04T19:35:22.925Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "2",
+    "object_repr": "Jornada de Oraci├│n por la Paz",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Preferencia visualizacion\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 24,
+  "fields": {
+    "action_time": "2025-10-04T19:46:37.528Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "4",
+    "object_repr": "Celebraci├│n del D├¡a de Santa Teresa",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Imagen\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 25,
+  "fields": {
+    "action_time": "2025-10-04T19:49:19.216Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "4",
+    "object_repr": "Celebraci├│n del D├¡a de Santa Teresa",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Imagen\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 26,
+  "fields": {
+    "action_time": "2025-10-04T19:52:18.500Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "6",
+    "object_repr": "Rosario por las Vocaciones",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Imagen\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 27,
+  "fields": {
+    "action_time": "2025-10-04T19:59:52.013Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "3",
+    "object_repr": "Encuentro Juvenil Misionero",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Imagen\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 28,
+  "fields": {
+    "action_time": "2025-10-04T20:08:38.845Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "1",
+    "object_repr": "Retiro Espiritual de Primavera",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Video youtube url\", \"Preferencia visualizacion\"]}}]"
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$7KtatuJSdnyxiIHQfYeND3$pP7S+jjbsd8W8YiWeOYxJuruwDBzoiXPahmJd4NAFkk=",
+    "last_login": "2025-10-04T02:12:47.892Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "admin@example.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2025-10-04T00:19:32.516Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "9u1k05ste9ftnyio22gxofo49bvgscgk",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQBe_iGllre_2jpOcM1vqHA8iR4qRC3B0ipYD2zcx7sUDb2sI2yhKmzM5MsNPvFik9St9BvlO_zTzNfV2myHeFH3Tw65zL83K4fweNRvvWlbJLTmobi7EIOTopwXugKoSy5BGxaG00-qqMI8QqTIIMpFAnZYC9P8-INuI:1v4r1V:W14uU42gf1GW7jaU0XRhEsLtc-Zeqa3fU27K40iVQxo",
+    "expire_date": "2025-10-18T01:25:21.472Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "mlg7qbszl4fc1pvxlsd8wdfp6zswre9n",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQBe_iGllre_2jpOcM1vqHA8iR4qRC3B0ipYD2zcx7sUDb2sI2yhKmzM5MsNPvFik9St9BvlO_zTzNfV2myHeFH3Tw65zL83K4fweNRvvWlbJLTmobi7EIOTopwXugKoSy5BGxaG00-qqMI8QqTIIMpFAnZYC9P8-INuI:1v4q5s:FVUuvFFq9ZngDFBOSUIP7aZ9Zq0uO7XUtrrjI_K5IRY",
+    "expire_date": "2025-10-18T00:25:48.469Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "yqkxdkkx5ksa48ytm600la3byolgms55",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQBe_iGllre_2jpOcM1vqHA8iR4qRC3B0ipYD2zcx7sUDb2sI2yhKmzM5MsNPvFik9St9BvlO_zTzNfV2myHeFH3Tw65zL83K4fweNRvvWlbJLTmobi7EIOTopwXugKoSy5BGxaG00-qqMI8QqTIIMpFAnZYC9P8-INuI:1v4rlP:eo66Fk140GFYmS5dcx3pMzRY6MabjEOUkDFyZai4z6E",
+    "expire_date": "2025-10-18T02:12:47.899Z"
+  }
+},
+{
+  "model": "core.evento",
+  "pk": 1,
+  "fields": {
+    "titulo": "Retiro Espiritual de Primavera",
+    "slug": "retiro-espiritual-de-primavera",
+    "descripcion": "Un fin de semana de renovaci├│n espiritual y conexi├│n con Dios. Incluye meditaciones, oraciones y momentos de reflexi├│n personal.",
+    "fecha": "2025-10-11T00:19:35Z",
+    "ubicacion": "Casa de Retiros Santa Mar├¡a",
+    "imagen": "",
+    "tipo_multimedia": "video_youtube",
+    "video_youtube_url": "https://www.youtube.com/watch?v=pVxm35TCXgs",
+    "video_local": "",
+    "preferencia_visualizacion": "video",
+    "formulario_url": null,
+    "activo": true,
+    "creado": "2025-10-04T00:19:35.947Z",
+    "modificado": "2025-10-04T20:08:38.841Z"
+  }
+},
+{
+  "model": "core.evento",
+  "pk": 2,
+  "fields": {
+    "titulo": "Jornada de Oraci├│n por la Paz",
+    "slug": "jornada-de-oracion-por-la-paz",
+    "descripcion": "Unidos en oraci├│n por la paz mundial. Una jornada especial de intercesi├│n y adoraci├│n.",
+    "fecha": "2025-10-18T00:19:35Z",
+    "ubicacion": "Santuario Nacional",
+    "imagen": "eventos/Ajustar_imagen_carga_pooJvPT.png",
+    "tipo_multimedia": "video_local",
+    "video_youtube_url": null,
+    "video_local": "eventos/videos/Video_de_WhatsApp_2025-09-29_a_las_20_gt7cgA3.47.50_268e99c0.mp4",
+    "preferencia_visualizacion": "video",
+    "formulario_url": "https://docs.google.com/forms/d/e/1FAIpQLSci5VIzMMbfPU3NtM4ajnY1WDHAXN55_UNS2VewJdcLTeR8Og/viewform",
+    "activo": true,
+    "creado": "2025-10-04T00:19:35.959Z",
+    "modificado": "2025-10-04T19:35:22.917Z"
+  }
+},
+{
+  "model": "core.evento",
+  "pk": 3,
+  "fields": {
+    "titulo": "Encuentro Juvenil Misionero",
+    "slug": "encuentro-juvenil-misionero",
+    "descripcion": "J├│venes unidos en la misi├│n. Actividades, talleres y momentos de oraci├│n para descubrir tu vocaci├│n misionera.",
+    "fecha": "2025-10-25T00:19:35Z",
+    "ubicacion": "Centro Pastoral Juvenil",
+    "imagen": "eventos/Gemini_Generated_Image_z7108pz7108pz710.png",
+    "tipo_multimedia": "ninguno",
+    "video_youtube_url": null,
+    "video_local": "",
+    "preferencia_visualizacion": "imagen",
+    "formulario_url": null,
+    "activo": true,
+    "creado": "2025-10-04T00:19:35.965Z",
+    "modificado": "2025-10-04T19:59:52.009Z"
+  }
+},
+{
+  "model": "core.evento",
+  "pk": 4,
+  "fields": {
+    "titulo": "Celebraci├│n del D├¡a de Santa Teresa",
+    "slug": "celebracion-del-dia-de-santa-teresa",
+    "descripcion": "Celebraci├│n especial en honor a Santa Teresa. Misa solemne, procesi├│n y compartir comunitario.",
+    "fecha": "2025-11-01T00:19:35Z",
+    "ubicacion": "Capilla Santa Teresa",
+    "imagen": "eventos/Gemini_Generated_Image_a8pk3la8pk3la8pk.png",
+    "tipo_multimedia": "ninguno",
+    "video_youtube_url": null,
+    "video_local": "",
+    "preferencia_visualizacion": "imagen",
+    "formulario_url": null,
+    "activo": true,
+    "creado": "2025-10-04T00:19:35.975Z",
+    "modificado": "2025-10-04T19:49:19.210Z"
+  }
+},
+{
+  "model": "core.evento",
+  "pk": 5,
+  "fields": {
+    "titulo": "Taller de Formaci├│n Misionera",
+    "slug": "taller-de-formacion-misionera",
+    "descripcion": "Formaci├│n intensiva para nuevos misioneros. Aprenderemos sobre evangelizaci├│n, pastoral y trabajo comunitario.",
+    "fecha": "2025-11-08T00:19:35.942Z",
+    "ubicacion": "Centro de Formaci├│n Misionera",
+    "imagen": "",
+    "tipo_multimedia": "ninguno",
+    "video_youtube_url": null,
+    "video_local": "",
+    "preferencia_visualizacion": "imagen",
+    "formulario_url": null,
+    "activo": true,
+    "creado": "2025-10-04T00:19:35.981Z",
+    "modificado": "2025-10-04T00:19:35.981Z"
+  }
+},
+{
+  "model": "core.evento",
+  "pk": 6,
+  "fields": {
+    "titulo": "Rosario por las Vocaciones",
+    "slug": "rosario-por-las-vocaciones",
+    "descripcion": "Jornada de oraci├│n especial por las vocaciones religiosas y misioneras. Rosario meditado y adoraci├│n.",
+    "fecha": "2025-11-15T00:19:35Z",
+    "ubicacion": "Santuario Mariano",
+    "imagen": "eventos/Gemini_Generated_Image_kezxkgkezxkgkezx.png",
+    "tipo_multimedia": "ninguno",
+    "video_youtube_url": null,
+    "video_local": "",
+    "preferencia_visualizacion": "imagen",
+    "formulario_url": null,
+    "activo": true,
+    "creado": "2025-10-04T00:19:35.994Z",
+    "modificado": "2025-10-04T19:52:18.496Z"
+  }
+},
+{
+  "model": "core.evento",
+  "pk": 7,
+  "fields": {
+    "titulo": "Ejercicios Espirituales",
+    "slug": "ejercicios-espirituales",
+    "descripcion": "Ejercicios a la luz de la palabra de Dios",
+    "fecha": "2025-10-22T23:00:00Z",
+    "ubicacion": "Barros aranas 66",
+    "imagen": "eventos/538439991_1187360613426611_8495532336150665475_n_GTGV5oS.jpg",
+    "tipo_multimedia": "ninguno",
+    "video_youtube_url": null,
+    "video_local": "",
+    "preferencia_visualizacion": "imagen",
+    "formulario_url": "https://docs.google.com/forms/d/e/1FAIpQLSci5VIzMMbfPU3NtM4ajnY1WDHAXN55_UNS2VewJdcLTeR8Og/viewform",
+    "activo": true,
+    "creado": "2025-10-04T00:27:36.326Z",
+    "modificado": "2025-10-04T04:02:29.341Z"
+  }
+},
+{
+  "model": "core.testimonio",
+  "pk": 1,
+  "fields": {
+    "nombre": "Mar├¡a Gonz├ílez",
+    "testimonio": "Mi vida cambi├│ completamente despu├®s del retiro espiritual. Encontr├® paz y un nuevo prop├│sito en mi caminar con Dios.",
+    "imagen": "testimonios/Retrato_de_mujer_par.png",
+    "aprobado": true,
+    "creado": "2025-10-04T00:19:36.012Z"
+  }
+},
+{
+  "model": "core.testimonio",
+  "pk": 2,
+  "fields": {
+    "nombre": "Juan P├®rez",
+    "testimonio": "Las hermanas misioneras me ayudaron a redescubrir mi fe en momentos dif├¡ciles. Su apoyo y oraciones fueron fundamentales.",
+    "imagen": "testimonios/Retrato_de_hombre_pa.png",
+    "aprobado": true,
+    "creado": "2025-10-04T00:19:36.025Z"
+  }
+},
+{
+  "model": "core.oracion",
+  "pk": 1,
+  "fields": {
+    "titulo": "Oraci├│n por la Paz Interior",
+    "contenido": "Se├▒or, conc├®deme la serenidad para aceptar las cosas que no puedo cambiar, el valor para cambiar las que puedo y la sabidur├¡a para reconocer la diferencia.",
+    "categoria": "Personal",
+    "activa": true,
+    "creado": "2025-10-04T00:19:36.032Z"
+  }
+},
+{
+  "model": "core.oracion",
+  "pk": 2,
+  "fields": {
+    "titulo": "Oraci├│n por las Familias",
+    "contenido": "Padre celestial, bendice y protege a todas las familias. Que encuentren en ti la fuente del amor y la unidad.",
+    "categoria": "Familia",
+    "activa": true,
+    "creado": "2025-10-04T00:19:36.049Z"
+  }
+},
+{
+  "model": "core.oracion",
+  "pk": 3,
+  "fields": {
+    "titulo": "Oraci├│n por los Enfermos",
+    "contenido": "Se├▒or Jes├║s, m├®dico divino, extiende tu mano sanadora sobre todos los que sufren enfermedades. Conc├®deles tu paz y consuelo.",
+    "categoria": "Sanaci├│n",
+    "activa": true,
+    "creado": "2025-10-04T00:19:36.066Z"
+  }
+},
+{
+  "model": "core.noticia",
+  "pk": 1,
+  "fields": {
+    "titulo": "Nueva Casa de Oraci├│n Inaugurada",
+    "slug": "nueva-casa-de-oracion-inaugurada",
+    "contenido": "Con gran alegr├¡a anunciamos la apertura de una nueva casa de oraci├│n que servir├í como centro de encuentro y espiritualidad para nuestra comunidad.",
+    "imagen": "noticias/noticia-juvenil.jpg",
+    "destacada": true,
+    "creado": "2025-10-04T00:19:36.081Z",
+    "modificado": "2025-10-04T04:21:40.509Z"
+  }
+},
+{
+  "model": "core.noticia",
+  "pk": 2,
+  "fields": {
+    "titulo": "Exitosa Misi├│n en Comunidades Rurales",
+    "slug": "exitosa-mision-en-comunidades-rurales",
+    "contenido": "Las hermanas misioneras completaron una exitosa misi├│n de tres meses en comunidades rurales, llevando esperanza y apoyo espiritual.",
+    "imagen": "noticias/noticia-retiro.jpg",
+    "destacada": true,
+    "creado": "2025-10-04T00:19:36.093Z",
+    "modificado": "2025-10-04T04:22:02.134Z"
+  }
+},
+{
+  "model": "core.noticia",
+  "pk": 3,
+  "fields": {
+    "titulo": "Programa de Formaci├│n Espiritual",
+    "slug": "programa-de-formacion-espiritual",
+    "contenido": "Iniciamos un nuevo programa de formaci├│n espiritual para laicos comprometidos. Las inscripciones est├ín abiertas.",
+    "imagen": "",
+    "destacada": true,
+    "creado": "2025-10-04T00:19:36.105Z",
+    "modificado": "2025-10-04T00:19:36.105Z"
+  }
+},
+{
+  "model": "core.noticia",
+  "pk": 4,
+  "fields": {
+    "titulo": "Bendici├│n de Nueva Capilla en Comunidad Rural",
+    "slug": "bendicion-de-nueva-capilla-en-comunidad-rural",
+    "contenido": "Con gran gozo compartimos la bendici├│n de una nueva capilla en la comunidad de San Jos├®. Este espacio sagrado ser├í un faro de esperanza y fe para los habitantes de la zona.",
+    "imagen": "noticias/noticia-oracion.jpg",
+    "destacada": true,
+    "creado": "2025-10-04T00:19:36.121Z",
+    "modificado": "2025-10-04T04:21:55.617Z"
+  }
+},
+{
+  "model": "core.noticia",
+  "pk": 5,
+  "fields": {
+    "titulo": "Encuentro Internacional de J├│venes Misioneros",
+    "slug": "encuentro-internacional-de-jovenes-misioneros",
+    "contenido": "M├ís de 100 j├│venes de diferentes pa├¡ses se reunieron para compartir experiencias y fortalecer su compromiso misionero. El evento incluy├│ talleres, oraciones y proyectos comunitarios.",
+    "imagen": "noticias/noticia-misa.jpg",
+    "destacada": true,
+    "creado": "2025-10-04T00:19:36.131Z",
+    "modificado": "2025-10-04T04:21:48.899Z"
+  }
+},
+{
+  "model": "core.noticia",
+  "pk": 6,
+  "fields": {
+    "titulo": "Celebraci├│n del Aniversario de la Congregaci├│n",
+    "slug": "celebracion-del-aniversario-de-la-congregacion",
+    "contenido": "Con inmensa gratitud celebramos un a├▒o m├ís de servicio y dedicaci├│n. La santa misa fue presidida por el obispo diocesano, seguida de un emotivo homenaje a las hermanas pioneras.\r\n\r\nTEST",
+    "imagen": "",
+    "destacada": true,
+    "creado": "2025-10-04T00:19:36.143Z",
+    "modificado": "2025-10-04T03:14:04.077Z"
+  }
+}
+]

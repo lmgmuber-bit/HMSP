@@ -1,0 +1,80 @@
+[
+{
+  "model": "core.noticia",
+  "pk": 6,
+  "fields": {
+    "titulo": "Celebración del Aniversario de la Congregación",
+    "slug": "celebracion-del-aniversario-de-la-congregacion",
+    "contenido": "Con inmensa gratitud celebramos un año más de servicio y dedicación. La santa misa fue presidida por el obispo diocesano, seguida de un emotivo homenaje a las hermanas pioneras.\r\n\r\nTEST",
+    "imagen": "",
+    "destacada": true,
+    "creado": "2025-10-04T00:19:36.143Z",
+    "modificado": "2025-10-04T03:14:04.077Z"
+  }
+},
+{
+  "model": "core.noticia",
+  "pk": 5,
+  "fields": {
+    "titulo": "Encuentro Internacional de Jóvenes Misioneros",
+    "slug": "encuentro-internacional-de-jovenes-misioneros",
+    "contenido": "Más de 100 jóvenes de diferentes países se reunieron para compartir experiencias y fortalecer su compromiso misionero. El evento incluyó talleres, oraciones y proyectos comunitarios.",
+    "imagen": "noticias/noticia-misa.jpg",
+    "destacada": true,
+    "creado": "2025-10-04T00:19:36.131Z",
+    "modificado": "2025-10-04T04:21:48.899Z"
+  }
+},
+{
+  "model": "core.noticia",
+  "pk": 4,
+  "fields": {
+    "titulo": "Bendición de Nueva Capilla en Comunidad Rural",
+    "slug": "bendicion-de-nueva-capilla-en-comunidad-rural",
+    "contenido": "Con gran gozo compartimos la bendición de una nueva capilla en la comunidad de San José. Este espacio sagrado será un faro de esperanza y fe para los habitantes de la zona.",
+    "imagen": "noticias/noticia-oracion.jpg",
+    "destacada": true,
+    "creado": "2025-10-04T00:19:36.121Z",
+    "modificado": "2025-10-04T04:21:55.617Z"
+  }
+},
+{
+  "model": "core.noticia",
+  "pk": 3,
+  "fields": {
+    "titulo": "Programa de Formación Espiritual",
+    "slug": "programa-de-formacion-espiritual",
+    "contenido": "Iniciamos un nuevo programa de formación espiritual para laicos comprometidos. Las inscripciones están abiertas.",
+    "imagen": "",
+    "destacada": true,
+    "creado": "2025-10-04T00:19:36.105Z",
+    "modificado": "2025-10-04T00:19:36.105Z"
+  }
+},
+{
+  "model": "core.noticia",
+  "pk": 2,
+  "fields": {
+    "titulo": "Exitosa Misión en Comunidades Rurales",
+    "slug": "exitosa-mision-en-comunidades-rurales",
+    "contenido": "Las hermanas misioneras completaron una exitosa misión de tres meses en comunidades rurales, llevando esperanza y apoyo espiritual.",
+    "imagen": "noticias/noticia-retiro.jpg",
+    "destacada": true,
+    "creado": "2025-10-04T00:19:36.093Z",
+    "modificado": "2025-10-04T04:22:02.134Z"
+  }
+},
+{
+  "model": "core.noticia",
+  "pk": 1,
+  "fields": {
+    "titulo": "Nueva Casa de Oración Inaugurada",
+    "slug": "nueva-casa-de-oracion-inaugurada",
+    "contenido": "Con gran alegría anunciamos la apertura de una nueva casa de oración que servirá como centro de encuentro y espiritualidad para nuestra comunidad.",
+    "imagen": "noticias/noticia-juvenil.jpg",
+    "destacada": true,
+    "creado": "2025-10-04T00:19:36.081Z",
+    "modificado": "2025-10-04T04:21:40.509Z"
+  }
+}
+]
