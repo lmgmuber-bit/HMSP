@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load i18n %}
 
 {% block extra_css %}
 <link href="{% static 'css/testimonios.css' %}" rel="stylesheet">
@@ -8,7 +9,7 @@
 {% block content %}
 <!-- Sección de Testimonios -->
 <div class="container py-5">
-    <h2 class="text-center mb-4">Testimonios</h2>
+    <h2 class="text-center mb-4">{% trans "Testimonios" %}</h2>
     <div class="row">
         {% if object_list %}
             {% for testimonio in object_list %}
@@ -49,7 +50,7 @@
             {% endfor %}
         {% else %}
             <div class="col-12">
-                <p class="text-center">No hay testimonios disponibles en este momento.</p>
+                <p class="text-center">{% trans "No hay testimonios disponibles en este momento." %}</p>
             </div>
         {% endif %}
     </div>

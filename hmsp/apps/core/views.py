@@ -1,6 +1,9 @@
 from django.views.generic import TemplateView, ListView, DetailView
-from .models import Evento, Testimonio, Oracion, Noticia, ConfiguracionSitio
+from .models import Evento, Testimonio, Oracion, Noticia, ConfiguracionSitio, Apostolado
 import re
+from django.db.models import Q
+from django.utils import translation
+from django.conf import settings
 
 def get_youtube_embed_url(url):
     """Convierte una URL de YouTube en una URL de embebido."""
@@ -23,7 +26,6 @@ def get_youtube_embed_url(url):
 def verificar_eventos_expirados():
     """Verifica y actualiza el estado de los eventos según sus fechas de publicación"""
     from django.utils import timezone
-    from django.db.models import Q
     
     now = timezone.now()
     
@@ -199,6 +201,11 @@ class NoticiaDetailView(DetailView):
 class QuienesSomosView(TemplateView):
     template_name = 'core/quienes_somos.html'
 
+
+class RecursosView(TemplateView):
+    template_name = 'core/recursos.html'
+
+
 class ContactoView(TemplateView):
     template_name = 'core/contacto.html'
     
@@ -258,3 +265,53 @@ class ContactoView(TemplateView):
             messages.error(request, 'Ocurrió un error al enviar tu mensaje. Por favor intenta nuevamente.')
         
         return redirect('core:contacto')
+
+
+class ApostoladoListView(ListView):
+    model = Apostolado
+    template_name = 'core/apostolados.html'
+    context_object_name = 'apostolados'
+    
+    def get_queryset(self):
+        return Apostolado.objects.filter(activo=True).order_by('orden', 'titulo')
+
+
+class ApostoladoDetailView(DetailView):
+    model = Apostolado
+    template_name = 'core/apostolado_detalle.html'
+    context_object_name = 'apostolado'
+    
+    def get_queryset(self):
+        return Apostolado.objects.filter(activo=True)
+
+class BuscarView(TemplateView):
+    template_name = 'core/buscar.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        query = self.request.GET.get('q', '').strip()
+        context['query'] = query
+        resultados = []
+        if query:
+            resultados += [self._add_tipo(obj, 'Evento') for obj in Evento.objects.filter(Q(titulo__icontains=query) | Q(descripcion__icontains=query), activo=True)]
+            resultados += [self._add_tipo(obj, 'Noticia') for obj in Noticia.objects.filter(Q(titulo__icontains=query) | Q(contenido__icontains=query))]
+            resultados += [self._add_tipo(obj, 'Testimonio') for obj in Testimonio.objects.filter(Q(nombre__icontains=query) | Q(testimonio__icontains=query))]
+            resultados += [self._add_tipo(obj, 'Apostolado') for obj in Apostolado.objects.filter(Q(titulo__icontains=query) | Q(descripcion__icontains=query), activo=True)]
+        context['resultados'] = resultados
+        return context
+
+    def _add_tipo(self, obj, tipo):
+        obj.tipo = tipo
+        return obj
+
+class IdiomaMiddleware:
+    def __init__(self, get_response):
+        self.get_response = get_response
+    def __call__(self, request):
+        lang = request.GET.get('lang')
+        if lang in dict(settings.LANGUAGES):
+            translation.activate(lang)
+            request.LANGUAGE_CODE = lang
+        response = self.get_response(request)
+        translation.deactivate()
+        return response

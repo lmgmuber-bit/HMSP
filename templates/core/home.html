@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
+{% load i18n %}
 
 {% block extra_css %}
 <link href="{% static 'css/carousel-principal.css' %}" rel="stylesheet">
@@ -29,7 +31,7 @@
                     {% if evento.tipo_multimedia == 'video_youtube' and evento.video_youtube_url %}
                         <div class="carousel-video-container">
                             <iframe class="carousel-video youtube-player"
-                                src="{{ evento.video_youtube_url }}?autoplay=0&controls=1&showinfo=0&rel=0&loop=1&playlist={{ evento.video_youtube_url|slice:'30:41' }}&mute=1"
+                                src="{{ evento.get_youtube_embed_url }}?autoplay=0&controls=1&showinfo=0&rel=0&modestbranding=1"
                                 frameborder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowfullscreen>
@@ -50,9 +52,9 @@
                                     <i class="fas fa-volume-mute"></i>
                                 </button>
                                 <div class="audio-tooltip">
-                                    <span class="d-none d-md-inline">Click</span>
-                                    <span class="d-md-none">Toca</span>
-                                    para activar el audio
+                                    <span class="d-none d-md-inline">{% trans "Click" %}</span>
+                                    <span class="d-md-none">{% trans "Toca" %}</span>
+                                    {% trans "para activar el audio" %}
                                 </div>
                             </div>
                             <div class="video-overlay"></div>
@@ -75,7 +77,7 @@
                     {% elif evento.tipo_multimedia == 'video_youtube' and evento.video_youtube_url %}
                         <div class="carousel-video-container">
                             <iframe class="carousel-video youtube-player"
-                                src="{{ evento.video_youtube_url }}?autoplay=0&controls=1&showinfo=0&rel=0&loop=1&playlist={{ evento.video_youtube_url|slice:'30:41' }}&mute=1"
+                                src="{{ evento.get_youtube_embed_url }}?autoplay=0&controls=1&showinfo=0&rel=0&modestbranding=1"
                                 frameborder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowfullscreen>
@@ -88,9 +90,9 @@
                                     <i class="fas fa-volume-mute"></i>
                                 </button>
                                 <div class="audio-tooltip">
-                                    <span class="d-none d-md-inline">Click</span>
-                                    <span class="d-md-none">Toca</span>
-                                    para activar el audio
+                                    <span class="d-none d-md-inline">{% trans "Click" %}</span>
+                                    <span class="d-md-none">{% trans "Toca" %}</span>
+                                    {% trans "para activar el audio" %}
                                 </div>
                             </div>
                             <div class="video-overlay"></div>

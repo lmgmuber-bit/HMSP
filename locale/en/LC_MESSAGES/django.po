@@ -1,0 +1,48 @@
+# English translations for HMSP
+msgid "Resultados de búsqueda"
+msgstr "Search results"
+
+msgid "Buscar..."
+msgstr "Search..."
+
+msgid "Buscar"
+msgstr "Search"
+
+msgid "No se encontraron resultados para"
+msgstr "No results found for"
+
+msgid "Ingresa un término para buscar en el sitio."
+msgstr "Enter a term to search the site."
+
+msgid "Inicio"
+msgstr "Home"
+
+msgid "Eventos"
+msgstr "Events"
+
+msgid "Testimonios"
+msgstr "Testimonials"
+
+msgid "Oraciones"
+msgstr "Prayers"
+
+msgid "Noticias"
+msgstr "News"
+
+msgid "Apostolados"
+msgstr "Apostolates"
+
+msgid "Recursos"
+msgstr "Resources"
+
+msgid "Suscribirse"
+msgstr "Subscribe"
+
+msgid "Realizar Donación"
+msgstr "Make a Donation"
+
+msgid "Volver a Apostolados"
+msgstr "Back to Apostolates"
+
+msgid "Contáctanos"
+msgstr "Contact us"

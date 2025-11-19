@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/date-inputs.css' %}">
@@ -8,7 +9,7 @@
 {% block content %}
 <!-- Sección de Eventos -->
 <div class="container py-5">
-    <h2 class="text-center mb-4">Eventos</h2>
+    <h2 class="text-center mb-4">{% trans "Eventos" %}</h2>
     
     <div class="row">
         {% if object_list %}
@@ -31,7 +32,7 @@
             {% endfor %}
         {% else %}
             <div class="col-12">
-                <p class="text-center">No hay eventos disponibles en este momento.</p>
+                <p class="text-center">{% trans "No hay eventos disponibles en este momento." %}</p>
             </div>
         {% endif %}
     </div>
@@ -41,20 +42,20 @@
         <div class="col-md-8 mx-auto">
             <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0"><i class="fas fa-search me-2"></i>Buscar Eventos</h5>
+                    <h5 class="mb-0"><i class="fas fa-search me-2"></i>{% trans "Buscar Eventos" %}</h5>
                 </div>
                 <form method="get" class="card-body">
                     <div class="row g-3">
                         <div class="col-md-6">
-                            <label for="titulo" class="form-label">Buscar por título</label>
+                            <label for="titulo" class="form-label">{% trans "Buscar por título" %}</label>
                             <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Título del evento..." value="{{ request.GET.titulo }}">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label">Rango de fechas</label>
+                            <label class="form-label">{% trans "Rango de fechas" %}</label>
                             <div class="row g-2">
                                 <div class="col-6">
                                     <div class="input-group">
-                                        <label class="input-group-text" style="min-width: 60px;">Desde</label>
+                                        <label class="input-group-text" style="min-width: 60px;">{% trans "Desde" %}</label>
                                         <input type="date" class="form-control date-input" id="fecha_desde" name="fecha_desde" 
                                                value="{{ request.GET.fecha_desde }}" style="min-width: 140px;">
                                     </div>

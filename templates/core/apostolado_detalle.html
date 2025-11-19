@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ apostolado.titulo }} - HMSP de la Oración Chile{% endblock %}
+
+{% block content %}
+<!-- Detalle del Apostolado -->
+<div class="container py-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'core:home' %}">{% trans "Inicio" %}</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'core:apostolados' %}">{% trans "Apostolados" %}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ apostolado.titulo }}</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <article class="apostolado-detail">
+                <h1 class="text-center mb-4 text-primary">{{ apostolado.titulo }}</h1>
+                
+                {% if apostolado.imagen %}
+                    <div class="text-center mb-4">
+                        {% if apostolado.imagen.name|slice:"-4:" == ".svg" %}
+                            <img src="{{ apostolado.imagen.url }}" class="img-fluid rounded" alt="{{ apostolado.titulo }}" style="max-height: 400px; width: auto;">
+                        {% else %}
+                            <img src="{{ apostolado.imagen.url }}" class="img-fluid rounded shadow" alt="{{ apostolado.titulo }}" style="max-height: 500px; width: 100%; object-fit: cover;">
+                        {% endif %}
+                    </div>
+                {% endif %}
+
+                <div class="apostolado-content">
+                    <div class="lead mb-4">
+                        {{ apostolado.descripcion_corta }}
+                    </div>
+                    
+                    <hr class="my-4">
+                    
+                    <div class="apostolado-description">
+                        {{ apostolado.descripcion|linebreaks }}
+                    </div>
+                </div>
+
+                <div class="mt-5 d-flex justify-content-between">
+                    <a href="{% url 'core:apostolados' %}" class="btn btn-outline-primary">
+                        <i class="fas fa-arrow-left me-2"></i>{% trans "Volver a Apostolados" %}
+                    </a>
+                    <a href="{% url 'core:contacto' %}" class="btn btn-primary">
+                        <i class="fas fa-envelope me-2"></i>{% trans "Contáctanos" %}
+                    </a>
+                </div>
+            </article>
+        </div>
+    </div>
+</div>
+
+<style>
+.apostolado-description {
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+</style>
+{% endblock %}

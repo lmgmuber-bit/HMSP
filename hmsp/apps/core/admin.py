@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Evento, Testimonio, Oracion, Noticia, ConfiguracionSitio, MensajeContacto
+from .models import Evento, Testimonio, Oracion, Noticia, ConfiguracionSitio, MensajeContacto, Apostolado
 
 @admin.register(Evento)
 class EventoAdmin(admin.ModelAdmin):
@@ -106,6 +106,32 @@ class ConfiguracionSitioAdmin(admin.ModelAdmin):
             'description': '<strong>Sección Vocaciones</strong><br>'
                           '📐 <strong>Imagen:</strong> 800x500 píxeles | Formato: JPG/PNG | Máximo: 1.5MB'
         }),
+        ('Recursos - Información General', {
+            'fields': ('recursos_titulo', 'recursos_contenido', 'recursos_imagen'),
+            'description': '<strong>Sección Recursos</strong><br>'
+                          '📐 <strong>Imagen:</strong> 1200x600 píxeles | Formato: JPG/PNG | Máximo: 2MB<br>'
+                          '<em>Contenido introductorio para la página de recursos</em>'
+        }),
+        ('Recursos - Biblioteca de Oraciones', {
+            'fields': ('biblioteca_oraciones_titulo', 'biblioteca_oraciones_contenido', 'biblioteca_oraciones_imagen'),
+            'description': '<strong>Subsección: Biblioteca de Oraciones</strong><br>'
+                          '📐 <strong>Imagen:</strong> 800x500 píxeles | Formato: JPG/PNG | Máximo: 1.5MB'
+        }),
+        ('Recursos - Material Espiritual', {
+            'fields': ('material_espiritual_titulo', 'material_espiritual_contenido', 'material_espiritual_imagen'),
+            'description': '<strong>Subsección: Material Espiritual</strong><br>'
+                          '📐 <strong>Imagen:</strong> 800x500 píxeles | Formato: JPG/PNG | Máximo: 1.5MB'
+        }),
+        ('Recursos - Boletín Mensual', {
+            'fields': ('boletin_mensual_titulo', 'boletin_mensual_contenido', 'boletin_mensual_imagen'),
+            'description': '<strong>Subsección: Boletín Mensual</strong><br>'
+                          '📐 <strong>Imagen:</strong> 800x500 píxeles | Formato: JPG/PNG | Máximo: 1.5MB'
+        }),
+        ('Recursos - Donaciones', {
+            'fields': ('donaciones_titulo', 'donaciones_contenido', 'donaciones_imagen'),
+            'description': '<strong>Subsección: Donaciones</strong><br>'
+                          '📐 <strong>Imagen:</strong> 800x500 píxeles | Formato: JPG/PNG | Máximo: 1.5MB'
+        }),
         ('Información de Contacto', {
             'fields': ('contacto_direccion', 'contacto_telefono', 'contacto_email', 'contacto_horario'),
             'description': 'Datos de contacto que aparecen en el sitio'
@@ -149,3 +175,23 @@ class MensajeContactoAdmin(admin.ModelAdmin):
     def has_add_permission(self, request):
         # Los mensajes solo se crean desde el formulario web
         return False
+
+
+@admin.register(Apostolado)
+class ApostoladoAdmin(admin.ModelAdmin):
+    list_display = ('titulo', 'orden', 'activo', 'modificado')
+    list_filter = ('activo',)
+    search_fields = ('titulo', 'descripcion')
+    list_editable = ('orden', 'activo')
+    prepopulated_fields = {'slug': ('titulo',)}
+    fieldsets = (
+        ('Información Básica', {
+            'fields': ('titulo', 'slug', 'descripcion_corta', 'descripcion', 'imagen'),
+            'description': '<strong>📋 INFORMACIÓN DEL APOSTOLADO:</strong><br>'
+                          '<em>El título aparecerá en el menú. La descripción corta se usa como resumen.</em>'
+        }),
+        ('Configuración', {
+            'fields': ('orden', 'activo'),
+            'description': 'Configure el orden de aparición en el menú (menor número aparece primero) y si está activo.'
+        }),
+    )

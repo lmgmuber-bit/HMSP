@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}Apostolados - HMSP de la Oración Chile{% endblock %}
+
+{% block content %}
+<!-- Sección de Apostolados -->
+<div class="container py-5">
+    <h2 class="text-center mb-4">{% trans "Nuestros Apostolados" %}</h2>
+    <p class="text-center text-muted mb-5">{% trans "Conoce las diferentes formas en que servimos a la comunidad" %}</p>
+    
+    <div class="row">
+        {% if apostolados %}
+            {% for apostolado in apostolados %}
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        {% if apostolado.imagen %}
+                            {% if apostolado.imagen.name|slice:"-4:" == ".svg" %}
+                                <div class="text-center p-4" style="background-color: #f8f9fa;">
+                                    <img src="{{ apostolado.imagen.url }}" class="img-fluid" alt="{{ apostolado.titulo }}" style="max-height: 200px; width: auto;">
+                                </div>
+                            {% else %}
+                                <img src="{{ apostolado.imagen.url }}" class="card-img-top" alt="{{ apostolado.titulo }}" style="height: 200px; object-fit: cover;">
+                            {% endif %}
+                        {% else %}
+                            <div class="text-center p-4" style="background-color: #f8f9fa;">
+                                <i class="fas fa-hands-helping fa-5x text-primary"></i>
+                            </div>
+                        {% endif %}
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title text-primary">{{ apostolado.titulo }}</h5>
+                            <p class="card-text flex-grow-1">{{ apostolado.descripcion_corta }}</p>
+                            <a href="{% url 'core:apostolado_detalle' apostolado.slug %}" class="btn btn-primary mt-auto">
+                                <i class="fas fa-arrow-right me-2"></i>{% trans "Ver más" %}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-12">
+                <div class="alert alert-info text-center" role="alert">
+                    <i class="fas fa-info-circle me-2"></i>
+                    {% trans "No hay apostolados disponibles en este momento." %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

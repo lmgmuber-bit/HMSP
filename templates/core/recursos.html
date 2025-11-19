@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ configuracion.recursos_titulo }} - HMSP de la Oración Chile{% endblock %}
+
+{% block content %}
+<!-- Sección de Recursos -->
+<div class="container py-5">
+    <h2 class="text-center mb-4">{{ configuracion.recursos_titulo }}</h2>
+    
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            {% if configuracion.recursos_imagen %}
+            <div class="text-center mb-4">
+                <img src="{{ configuracion.recursos_imagen.url }}" 
+                     alt="{{ configuracion.recursos_titulo }}" 
+                     class="img-fluid rounded shadow"
+                     style="max-height: 400px; object-fit: cover;">
+            </div>
+            {% endif %}
+            
+            <div class="card">
+                <div class="card-body">
+                    {% if configuracion.recursos_contenido %}
+                    <div class="mb-4">
+                        {{ configuracion.recursos_contenido|linebreaks }}
+                    </div>
+                    {% endif %}
+                    
+                    <!-- Biblioteca de Oraciones -->
+                    {% if configuracion.biblioteca_oraciones_contenido %}
+                    <div class="mb-4 mt-5" id="biblioteca-oraciones">
+                        <h3>{{ configuracion.biblioteca_oraciones_titulo }}</h3>
+                        {% if configuracion.biblioteca_oraciones_imagen %}
+                        <div class="text-center mb-3">
+                            <img src="{{ configuracion.biblioteca_oraciones_imagen.url }}" 
+                                 alt="{{ configuracion.biblioteca_oraciones_titulo }}" 
+                                 class="img-fluid rounded"
+                                 style="max-height: 300px; object-fit: cover;">
+                        </div>
+                        {% endif %}
+                        {{ configuracion.biblioteca_oraciones_contenido|linebreaks }}
+                        <div class="mt-3">
+                            <a href="{% url 'core:oraciones' %}" class="btn btn-primary">
+                                <i class="fas fa-book me-2"></i>Ver Oraciones
+                            </a>
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    <!-- Material Espiritual -->
+                    {% if configuracion.material_espiritual_contenido %}
+                    <div class="mb-4 mt-5" id="material-espiritual">
+                        <h3>{{ configuracion.material_espiritual_titulo }}</h3>
+                        {% if configuracion.material_espiritual_imagen %}
+                        <div class="text-center mb-3">
+                            <img src="{{ configuracion.material_espiritual_imagen.url }}" 
+                                 alt="{{ configuracion.material_espiritual_titulo }}" 
+                                 class="img-fluid rounded"
+                                 style="max-height: 300px; object-fit: cover;">
+                        </div>
+                        {% endif %}
+                        {{ configuracion.material_espiritual_contenido|linebreaks }}
+                    </div>
+                    {% endif %}
+                    
+                    <!-- Boletín Mensual -->
+                    {% if configuracion.boletin_mensual_contenido %}
+                    <div class="mb-4 mt-5" id="boletin-mensual">
+                        <h3>{{ configuracion.boletin_mensual_titulo }}</h3>
+                        {% if configuracion.boletin_mensual_imagen %}
+                        <div class="text-center mb-3">
+                            <img src="{{ configuracion.boletin_mensual_imagen.url }}" 
+                                 alt="{{ configuracion.boletin_mensual_titulo }}" 
+                                 class="img-fluid rounded"
+                                 style="max-height: 300px; object-fit: cover;">
+                        </div>
+                        {% endif %}
+                        {{ configuracion.boletin_mensual_contenido|linebreaks }}
+                        <div class="mt-3">
+                            <a href="{% url 'core:contacto' %}" class="btn btn-primary">
+                                <i class="fas fa-envelope me-2"></i>Suscribirse
+                            </a>
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    <!-- Donaciones -->
+                    {% if configuracion.donaciones_contenido %}
+                    <div class="mb-4 mt-5" id="donaciones">
+                        <h3>{{ configuracion.donaciones_titulo }}</h3>
+                        {% if configuracion.donaciones_imagen %}
+                        <div class="text-center mb-3">
+                            <img src="{{ configuracion.donaciones_imagen.url }}" 
+                                 alt="{{ configuracion.donaciones_titulo }}" 
+                                 class="img-fluid rounded"
+                                 style="max-height: 300px; object-fit: cover;">
+                        </div>
+                        {% endif %}
+                        {{ configuracion.donaciones_contenido|linebreaks }}
+                        <div class="mt-3">
+                            <a href="{% url 'core:contacto' %}" class="btn btn-success">
+                                <i class="fas fa-heart me-2"></i>Realizar Donación
+                            </a>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

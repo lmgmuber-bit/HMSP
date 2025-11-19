@@ -15,7 +15,7 @@
 
                 {% if evento.tipo_multimedia == 'video_youtube' and evento.video_youtube_url %}
                 <div class="ratio ratio-16x9 mt-3">
-                    <iframe src="{{ evento.video_youtube_url }}" 
+                    <iframe src="{{ evento.get_youtube_embed_url }}?autoplay=0&controls=1&modestbranding=1" 
                             title="{{ evento.titulo }}" 
                             frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
@@ -53,7 +53,7 @@
                     
                     {% if evento.requisitos %}
                     <div class="mb-4">
-                        <h5>Requisitos:</h5>
+                        <h5>{% trans "Requisitos:" %}</h5>
                         {{ evento.requisitos|linebreaks }}
                     </div>
                     {% endif %}

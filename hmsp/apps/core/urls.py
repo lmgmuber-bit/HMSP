@@ -6,6 +6,7 @@ app_name = 'core'
 urlpatterns = [
     path('', views.HomeView.as_view(), name='home'),
     path('quienes-somos/', views.QuienesSomosView.as_view(), name='quienes_somos'),
+    path('recursos/', views.RecursosView.as_view(), name='recursos'),
     path('contacto/', views.ContactoView.as_view(), name='contacto'),
     path('eventos/', views.EventoListView.as_view(), name='eventos'),
     path('eventos/<slug:slug>/', views.EventoDetailView.as_view(), name='evento_detalle'),
@@ -13,4 +14,7 @@ urlpatterns = [
     path('oraciones/', views.OracionListView.as_view(), name='oraciones'),
     path('noticias/', views.NoticiaListView.as_view(), name='noticias'),
     path('noticias/<slug:slug>/', views.NoticiaDetailView.as_view(), name='noticia_detalle'),
+    path('apostolados/', views.ApostoladoListView.as_view(), name='apostolados'),
+    path('apostolados/<slug:slug>/', views.ApostoladoDetailView.as_view(), name='apostolado_detalle'),
+    path('buscar/', views.BuscarView.as_view(), name='buscar'),
 ]

@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
+from django.core.validators import FileExtensionValidator
 
 class Evento(models.Model):
     titulo = models.CharField(max_length=200)
@@ -46,6 +47,30 @@ class Evento(models.Model):
     activo = models.BooleanField(default=True)
     creado = models.DateTimeField(auto_now_add=True)
     modificado = models.DateTimeField(auto_now=True)
+
+    def get_youtube_embed_url(self):
+        """Convierte URL de YouTube a formato embed con modo de privacidad mejorada"""
+        if not self.video_youtube_url:
+            return None
+        
+        # Extraer el ID del video de diferentes formatos de URL
+        import re
+        patterns = [
+            r'(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&?\s]+)',  # youtube.com/watch?v= o youtu.be/
+            r'youtube\.com\/embed\/([^?&\s]+)',  # ya está en formato embed
+            r'youtube-nocookie\.com\/embed\/([^?&\s]+)',  # formato nocookie
+        ]
+        
+        for pattern in patterns:
+            match = re.search(pattern, self.video_youtube_url)
+            if match:
+                video_id = match.group(1)
+                # Limpiar cualquier parámetro adicional del video_id
+                video_id = video_id.split('?')[0].split('&')[0]
+                # Usar dominio youtube-nocookie.com para evitar restricciones
+                return f'https://www.youtube-nocookie.com/embed/{video_id}'
+        
+        return self.video_youtube_url  # Si no coincide, devolver original
 
     class Meta:
         ordering = ['orden_carrusel', '-fecha']
@@ -228,6 +253,101 @@ class ConfiguracionSitio(models.Model):
         help_text='Dimensiones recomendadas: 800x500 píxeles. Formato: JPG o PNG. Tamaño máximo: 1.5MB.'
     )
     
+    # Recursos
+    recursos_titulo = models.CharField(
+        max_length=200,
+        default='Recursos',
+        verbose_name='Título de Recursos'
+    )
+    recursos_contenido = models.TextField(
+        blank=True,
+        verbose_name='Contenido de Recursos',
+        help_text='Información general sobre los recursos disponibles'
+    )
+    recursos_imagen = models.ImageField(
+        upload_to='configuracion/',
+        blank=True,
+        null=True,
+        verbose_name='Imagen de Recursos',
+        help_text='Dimensiones recomendadas: 1200x600 píxeles. Formato: JPG o PNG. Tamaño máximo: 2MB.'
+    )
+    
+    # Biblioteca de Oraciones
+    biblioteca_oraciones_titulo = models.CharField(
+        max_length=200,
+        default='Biblioteca de Oraciones',
+        verbose_name='Título de Biblioteca de Oraciones'
+    )
+    biblioteca_oraciones_contenido = models.TextField(
+        blank=True,
+        verbose_name='Contenido de Biblioteca de Oraciones',
+        help_text='Descripción de la colección de oraciones disponibles'
+    )
+    biblioteca_oraciones_imagen = models.ImageField(
+        upload_to='configuracion/',
+        blank=True,
+        null=True,
+        verbose_name='Imagen de Biblioteca de Oraciones',
+        help_text='Dimensiones recomendadas: 800x500 píxeles. Formato: JPG o PNG. Tamaño máximo: 1.5MB.'
+    )
+    
+    # Material Espiritual
+    material_espiritual_titulo = models.CharField(
+        max_length=200,
+        default='Material Espiritual',
+        verbose_name='Título de Material Espiritual'
+    )
+    material_espiritual_contenido = models.TextField(
+        blank=True,
+        verbose_name='Contenido de Material Espiritual',
+        help_text='Información sobre material de formación espiritual'
+    )
+    material_espiritual_imagen = models.ImageField(
+        upload_to='configuracion/',
+        blank=True,
+        null=True,
+        verbose_name='Imagen de Material Espiritual',
+        help_text='Dimensiones recomendadas: 800x500 píxeles. Formato: JPG o PNG. Tamaño máximo: 1.5MB.'
+    )
+    
+    # Boletín Mensual
+    boletin_mensual_titulo = models.CharField(
+        max_length=200,
+        default='Boletín Mensual',
+        verbose_name='Título de Boletín Mensual'
+    )
+    boletin_mensual_contenido = models.TextField(
+        blank=True,
+        verbose_name='Contenido de Boletín Mensual',
+        help_text='Descripción del boletín y cómo suscribirse'
+    )
+    boletin_mensual_imagen = models.ImageField(
+        upload_to='configuracion/',
+        blank=True,
+        null=True,
+        verbose_name='Imagen de Boletín Mensual',
+        help_text='Dimensiones recomendadas: 800x500 píxeles. Formato: JPG o PNG. Tamaño máximo: 1.5MB.'
+    )
+    
+    # Donaciones
+    donaciones_titulo = models.CharField(
+        max_length=200,
+        default='Donaciones',
+        verbose_name='Título de Donaciones'
+    )
+    donaciones_contenido = models.TextField(
+        blank=True,
+        verbose_name='Contenido de Donaciones',
+        help_text='Información sobre cómo realizar donaciones'
+    )
+    donaciones_imagen = models.ImageField(
+        upload_to='configuracion/',
+        blank=True,
+        null=True,
+        verbose_name='Imagen de Donaciones',
+        help_text='Dimensiones recomendadas: 800x500 píxeles. Formato: JPG o PNG. Tamaño máximo: 1.5MB.'
+    )
+    
     # Información de Contacto
     contacto_direccion = models.CharField(
         max_length=300,
@@ -295,3 +415,35 @@ class MensajeContacto(models.Model):
     
     def __str__(self):
         return f"{self.nombre} - {self.asunto} ({self.creado.strftime('%d/%m/%Y')})"
+
+
+class Apostolado(models.Model):
+    titulo = models.CharField(max_length=200, verbose_name='Título')
+    slug = models.SlugField(unique=True, blank=True)
+    descripcion_corta = models.TextField(max_length=300, verbose_name='Descripción Corta', help_text='Breve descripción para el menú')
+    descripcion = models.TextField(verbose_name='Descripción Completa')
+    imagen = models.FileField(
+        upload_to='apostolados/',
+        blank=True,
+        null=True,
+        verbose_name='Imagen',
+        help_text='Imagen representativa del apostolado (Formatos: JPG, PNG, SVG. Recomendado: 800x600px, máx 2MB)',
+        validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png', 'svg'])]
+    )
+    orden = models.IntegerField(default=0, verbose_name='Orden', help_text='Orden de aparición en el menú (menor número = primero)')
+    activo = models.BooleanField(default=True, verbose_name='Activo')
+    creado = models.DateTimeField(auto_now_add=True)
+    modificado = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['orden', 'titulo']
+        verbose_name = 'Apostolado'
+        verbose_name_plural = 'Apostolados'
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.titulo)
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.titulo

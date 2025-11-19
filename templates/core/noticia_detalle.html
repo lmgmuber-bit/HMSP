@@ -18,7 +18,7 @@
                     
                     <div class="mb-3 text-muted">
                         <i class="far fa-clock me-2"></i>
-                        <span>Publicado el {{ noticia.creado|date:"d/m/Y" }} a las {{ noticia.creado|date:"H:i" }} hrs.</span>
+                        <span>{% trans "Publicado el" %} {{ noticia.creado|date:"d/m/Y" }} {% trans "a las" %} {{ noticia.creado|date:"H:i" }} {% trans "hrs." %}</span>
                         
                         {% if noticia.autor %}
                             <span class="ms-3">
@@ -34,7 +34,7 @@
                     
                     {% if noticia.tags.all %}
                     <div class="mb-4">
-                        <h5>Etiquetas:</h5>
+                        <h5>{% trans "Etiquetas:" %}</h5>
                         {% for tag in noticia.tags.all %}
                             <span class="badge bg-secondary me-2">{{ tag.nombre }}</span>
                         {% endfor %}
@@ -43,18 +43,18 @@
                     
                     <!-- Botones de Compartir -->
                     <div class="share-buttons mt-4">
-                        <h5>Compartir noticia:</h5>
+                        <h5>{% trans "Compartir noticia:" %}</h5>
                         <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" 
                            class="btn btn-primary me-2" target="_blank">
-                            <i class="fab fa-facebook-f"></i> Facebook
+                            <i class="fab fa-facebook-f"></i> {% trans "Facebook" %}
                         </a>
                         <a href="https://twitter.com/intent/tweet?text={{ noticia.titulo }}&url={{ request.build_absolute_uri }}" 
                            class="btn btn-dark me-2" target="_blank">
-                            <i class="fab fa-x-twitter"></i> X
+                            <i class="fab fa-x-twitter"></i> {% trans "X" %}
                         </a>
                         <a href="https://wa.me/?text={{ noticia.titulo }}%20{{ request.build_absolute_uri }}" 
                            class="btn btn-success" target="_blank">
-                            <i class="fab fa-whatsapp"></i> WhatsApp
+                            <i class="fab fa-whatsapp"></i> {% trans "WhatsApp" %}
                         </a>
                     </div>
                 </div>
