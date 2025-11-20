@@ -1,6 +1,52 @@
 from django.contrib import admin
 from django import forms
 from .models import Evento, Testimonio, Oracion, Noticia, ConfiguracionSitio, MensajeContacto, Apostolado
+from .models import Suscripcion
+
+@admin.register(Suscripcion)
+class SuscripcionAdmin(admin.ModelAdmin):
+    list_display = ('id', 'nombre', 'telefono', 'email', 'fecha_suscripcion')
+    search_fields = ('nombre', 'telefono', 'email')
+    ordering = ('-fecha_suscripcion',)
+
+    actions = ['exportar_excel']
+
+    def exportar_excel(self, request, queryset):
+        import openpyxl
+        from django.http import HttpResponse
+        from openpyxl.utils import get_column_letter
+
+        wb = openpyxl.Workbook()
+        ws = wb.active
+        ws.title = "Suscripciones"
+
+        # Encabezados
+        headers = ['ID', 'Nombre', 'Teléfono', 'Email', 'Fecha Suscripción']
+        ws.append(headers)
+
+        # Datos
+        for suscripcion in queryset:
+            ws.append([
+                suscripcion.id,
+                suscripcion.nombre,
+                suscripcion.telefono,
+                suscripcion.email,
+                suscripcion.fecha_suscripcion.strftime('%Y-%m-%d %H:%M')
+            ])
+
+        # Ajustar ancho de columnas
+        for i, col in enumerate(headers, 1):
+            ws.column_dimensions[get_column_letter(i)].width = 20
+
+        response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+        response['Content-Disposition'] = 'attachment; filename=suscripciones.xlsx'
+        wb.save(response)
+        return response
+
+    exportar_excel.short_description = "Exportar seleccionados a Excel"
+from django.core.mail import EmailMultiAlternatives
+from django.conf import settings
+from .email_templates import render_evento_email, render_noticia_email
 
 @admin.register(Evento)
 class EventoAdmin(admin.ModelAdmin):
@@ -29,6 +75,24 @@ class EventoAdmin(admin.ModelAdmin):
             'fields': ('formulario_url',)
         })
     )
+    def save_model(self, request, obj, form, change):
+        super().save_model(request, obj, form, change)
+        if not change:
+            suscriptores = Suscripcion.objects.values_list('email', flat=True)
+            if suscriptores:
+                    html_content = render_evento_email(obj)
+                    subject = f"HMSP - Nuevo evento: {obj.titulo}"
+                    from_email = settings.DEFAULT_FROM_EMAIL
+                    msg = EmailMultiAlternatives(
+                        subject=subject,
+                        body=f"Se ha publicado un nuevo evento en HMSP: {obj.titulo}\n\n{obj.descripcion}",
+                        from_email=from_email,
+                        to=[],
+                        bcc=list(suscriptores),
+                        headers={"List-Unsubscribe": "<https://hmsp.cl/suscripcion/>"}
+                    )
+                    msg.attach_alternative(html_content, "text/html")
+                    msg.send(fail_silently=True)
 
 @admin.register(Testimonio)
 class TestimonioAdmin(admin.ModelAdmin):
@@ -79,6 +143,24 @@ class NoticiaAdmin(admin.ModelAdmin):
                           '<em>Tip: Use imágenes bien iluminadas y de alta calidad. Las noticias destacadas aparecen en la página principal.</em>'
         }),
     )
+    def save_model(self, request, obj, form, change):
+        super().save_model(request, obj, form, change)
+        if not change:
+            suscriptores = Suscripcion.objects.values_list('email', flat=True)
+            if suscriptores:
+                    html_content = render_noticia_email(obj)
+                    subject = f"HMSP - Nueva noticia: {obj.titulo}"
+                    from_email = settings.DEFAULT_FROM_EMAIL
+                    msg = EmailMultiAlternatives(
+                        subject=subject,
+                        body=f"Se ha publicado una nueva noticia en HMSP: {obj.titulo}\n\n{obj.contenido[:200]}...",
+                        from_email=from_email,
+                        to=[],
+                        bcc=list(suscriptores),
+                        headers={"List-Unsubscribe": "<https://hmsp.cl/suscripcion/>"}
+                    )
+                    msg.attach_alternative(html_content, "text/html")
+                    msg.send(fail_silently=True)
 
 @admin.register(ConfiguracionSitio)
 class ConfiguracionSitioAdmin(admin.ModelAdmin):

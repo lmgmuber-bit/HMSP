@@ -17,4 +17,8 @@ urlpatterns = [
     path('apostolados/', views.ApostoladoListView.as_view(), name='apostolados'),
     path('apostolados/<slug:slug>/', views.ApostoladoDetailView.as_view(), name='apostolado_detalle'),
     path('buscar/', views.BuscarView.as_view(), name='buscar'),
+    path('suscripcion/', views.suscripcion_view, name='suscripcion'),
+    path('email-preview/', views.email_preview, name='email_preview'),
+    path('email-preview-video/', views.email_preview_video, name='email_preview_video'),
+    path('cancelar-suscripcion/', views.cancelar_suscripcion, name='cancelar_suscripcion'),
 ]

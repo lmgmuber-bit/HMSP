@@ -1,9 +1,140 @@
+# --- Cancelar suscripción ---
+from django.http import HttpResponseRedirect
+from django.contrib import messages
+def cancelar_suscripcion(request):
+    from .models import Suscripcion
+    email = request.GET.get('email')
+    if email:
+        Suscripcion.objects.filter(email=email).delete()
+        messages.success(request, 'Tu suscripción ha sido cancelada correctamente.')
+    return HttpResponseRedirect('/')
+# Vista de previsualización de correo
+
+
+def email_preview(request):
+    from .models import ConfiguracionSitio, Evento
+    config = ConfiguracionSitio.objects.first()
+    logo_url = config.logo_principal.url if config and config.logo_principal else None
+    suscriptor = {'nombre': 'Juan Pérez'}
+    # Buscar un evento real con imagen
+    evento = Evento.objects.filter(imagen__isnull=False).order_by('-fecha').first()
+    if evento:
+        ejemplo = {
+            'titulo': evento.titulo,
+            'imagen_url': f'https://hmsp.cl{evento.imagen.url}' if evento.imagen else '',
+            'fecha': evento.fecha.strftime('%d/%m/%Y %H:%M'),
+            'ubicacion': evento.ubicacion,
+            'descripcion': evento.descripcion,
+            'url': f'https://hmsp.cl/eventos/{evento.slug}/',
+            'suscriptor': suscriptor,
+            'logo_url': logo_url
+        }
+    else:
+        ejemplo = {
+            'titulo': 'Retiro Espiritual HMSP',
+            'imagen_url': 'https://hmsp.cl/static/img/ejemplo-evento.jpg',
+            'fecha': '25/11/2025 18:00',
+            'ubicacion': 'Parroquia San Pablo',
+            'descripcion': 'Te invitamos al retiro espiritual anual. Habrá charlas, oración y convivencia.',
+            'url': 'https://hmsp.cl/eventos/retiro-espiritual-hmsp/',
+            'suscriptor': suscriptor,
+            'logo_url': logo_url
+        }
+    return render(request, 'core/email_preview.html', ejemplo)
+
+# Previsualización de correo para evento con video
+def email_preview_video(request):
+    from .models import ConfiguracionSitio, Evento
+    config = ConfiguracionSitio.objects.first()
+    logo_url = config.logo_principal.url if config and config.logo_principal else None
+    suscriptor = {'nombre': 'Juan Pérez'}
+    evento = Evento.objects.filter(tipo_multimedia__in=['video_youtube', 'video_local']).order_by('-fecha').first()
+    video_url = None
+    if evento:
+        if evento.tipo_multimedia == 'video_youtube' and evento.video_youtube_url:
+            video_url = evento.get_youtube_embed_url()
+        elif evento.tipo_multimedia == 'video_local' and evento.video_local:
+            video_url = evento.video_local.url
+        ejemplo = {
+            'titulo': evento.titulo,
+            'imagen_url': f'https://hmsp.cl{evento.imagen.url}' if evento.imagen else '',
+            'fecha': evento.fecha.strftime('%d/%m/%Y %H:%M'),
+            'ubicacion': evento.ubicacion,
+            'descripcion': evento.descripcion,
+            'url': f'https://hmsp.cl/eventos/{evento.slug}/',
+            'suscriptor': suscriptor,
+            'logo_url': logo_url,
+            'video_url': video_url,
+            'tipo_multimedia': evento.tipo_multimedia
+        }
+    else:
+        ejemplo = {
+            'titulo': 'Evento con Video',
+            'imagen_url': '',
+            'fecha': '25/11/2025 18:00',
+            'ubicacion': 'Parroquia San Pablo',
+            'descripcion': 'Ejemplo de evento con video YouTube o local.',
+            'url': 'https://hmsp.cl/eventos/ejemplo-video/',
+            'suscriptor': suscriptor,
+            'logo_url': logo_url,
+            'video_url': 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+            'tipo_multimedia': 'video_youtube'
+        }
+    return render(request, 'core/email_preview_video.html', ejemplo)
+
 from django.views.generic import TemplateView, ListView, DetailView
-from .models import Evento, Testimonio, Oracion, Noticia, ConfiguracionSitio, Apostolado
+from .models import Evento, Testimonio, Oracion, Noticia, ConfiguracionSitio, Apostolado, Suscripcion
+from .forms import SuscripcionForm
+from django.shortcuts import render, redirect
+from django.contrib import messages
 import re
 from django.db.models import Q
 from django.utils import translation
 from django.conf import settings
+
+# Vista para suscripción de usuarios
+
+def suscripcion_view(request):
+    from django.http import JsonResponse
+    if request.method == 'POST':
+        form = SuscripcionForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            if Suscripcion.objects.filter(email=email).exists():
+                msg = 'Correo suscrito.'
+                status = 'info'
+                if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+                    return JsonResponse({'message': msg, 'status': status})
+                else:
+                    messages.info(request, msg)
+                    return redirect('core:suscripcion')
+            else:
+                form.save()
+                msg = '¡Te has suscrito correctamente!'
+                status = 'success'
+                if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+                    return JsonResponse({'message': msg, 'status': status})
+                else:
+                    messages.success(request, msg)
+                    return redirect('core:suscripcion')
+        else:
+            if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+                # Mostrar error específico si existe en el campo email
+                email_errors = form.errors.get('email')
+                telefono_errors = form.errors.get('telefono')
+                nombre_errors = form.errors.get('nombre')
+                if email_errors:
+                    msg = email_errors[0]
+                elif telefono_errors:
+                    msg = telefono_errors[0]
+                elif nombre_errors:
+                    msg = nombre_errors[0]
+                else:
+                    msg = 'Formulario inválido. Verifica los datos.'
+                return JsonResponse({'message': msg, 'status': 'error'})
+    else:
+        form = SuscripcionForm()
+    return render(request, 'core/suscripcion.html', {'form': form})
 
 def get_youtube_embed_url(url):
     """Convierte una URL de YouTube en una URL de embebido."""

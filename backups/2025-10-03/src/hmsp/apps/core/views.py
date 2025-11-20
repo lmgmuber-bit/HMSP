@@ -59,3 +59,4 @@ class NoticiaDetailView(DetailView):
     model = Noticia
     template_name = 'core/noticia_detalle.html'
     context_object_name = 'noticia'
+    

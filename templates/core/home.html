@@ -295,7 +295,85 @@
     <div class="container">
         <h2 class="mb-4">¿Quieres unirte a nuestra comunidad?</h2>
         <p class="lead mb-4">Únete a nuestros eventos y sé parte de esta hermosa misión</p>
-        <a href="{% url 'core:eventos' %}" class="btn btn-light btn-lg">Explorar Eventos</a>
+                <div class="d-flex justify-content-center gap-3">
+                        <a href="{% url 'core:eventos' %}" class="btn btn-light btn-lg">Explorar Eventos</a>
+                        <button type="button" class="btn btn-outline-light btn-lg" data-bs-toggle="modal" data-bs-target="#modalSuscripcion">Suscribirse</button>
+                </div>
+
+                <!-- Modal Suscripción -->
+                <div class="modal fade" id="modalSuscripcion" tabindex="-1" aria-labelledby="modalSuscripcionLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header bg-primary text-white">
+                                <h5 class="modal-title" id="modalSuscripcionLabel">Suscríbete para recibir novedades</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form method="post" action="{% url 'core:suscripcion' %}" id="formSuscripcion">
+                                    {% csrf_token %}
+                                    <div class="mb-3">
+                                          <label for="id_nombre" class="form-label fw-bold" style="color:#174e89;">Nombre</label>
+                                          <input type="text" name="nombre" maxlength="100" class="form-control" id="id_nombre" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="id_telefono" class="form-label fw-bold" style="color:#174e89;">Teléfono (+56)</label>
+                                        <input type="text" name="telefono" maxlength="9" class="form-control" id="id_telefono" required placeholder="Ej: 912345678">
+                                    </div>
+                                    <div class="mb-3">
+                                          <label for="id_email" class="form-label fw-bold" style="color:#174e89;">Correo electrónico</label>
+                                          <input type="email" name="email" maxlength="254" class="form-control" id="id_email" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary w-100">Suscribirme</button>
+                                </form>
+                                <div id="suscripcionMensaje" style="display:none;" class="alert mt-3"></div>
+                                <script>
+                                document.addEventListener('DOMContentLoaded', function() {
+                                    var telefonoInput = document.getElementById('id_telefono');
+                                    telefonoInput.addEventListener('input', function() {
+                                        var value = telefonoInput.value;
+                                        if (value.length > 0 && !(value[0] === '9' || value[0] === '2')) {
+                                            telefonoInput.setCustomValidity('El primer dígito debe ser 9 o 2');
+                                        } else {
+                                            telefonoInput.setCustomValidity('');
+                                        }
+                                    });
+
+                                    var form = document.getElementById('formSuscripcion');
+                                    form.addEventListener('submit', function(e) {
+                                        e.preventDefault();
+                                        var formData = new FormData(form);
+                                        var mensajeDiv = document.getElementById('suscripcionMensaje');
+                                        fetch(form.action, {
+                                            method: 'POST',
+                                            headers: {
+                                                'X-Requested-With': 'XMLHttpRequest'
+                                            },
+                                            body: formData
+                                        })
+                                        .then(response => response.json())
+                                        .then(data => {
+                                            mensajeDiv.style.display = 'block';
+                                            mensajeDiv.textContent = data.message;
+                                            mensajeDiv.className = 'alert mt-3 ' + (data.status === 'success' ? 'alert-success' : (data.status === 'info' ? 'alert-info' : 'alert-danger'));
+                                            if (data.status === 'success') {
+                                                setTimeout(function() {
+                                                    window.location.reload();
+                                                }, 3000);
+                                            }
+                                        })
+                                        .catch(() => {
+                                            mensajeDiv.style.display = 'block';
+                                            mensajeDiv.textContent = 'Error al procesar la suscripción.';
+                                            mensajeDiv.className = 'alert mt-3 alert-danger';
+                                        });
+                                    });
+                                });
+                                </script>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
     </div>
 </section>
 

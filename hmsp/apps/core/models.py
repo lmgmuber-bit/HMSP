@@ -1,6 +1,18 @@
+
 from django.db import models
 from django.utils.text import slugify
 from django.core.validators import FileExtensionValidator
+
+# Modelo para suscripciones de usuarios
+
+class Suscripcion(models.Model):
+    nombre = models.CharField(max_length=100)
+    telefono = models.CharField(max_length=9, blank=False, help_text="Número chileno, 9 dígitos, inicia con 9 o 2")
+    email = models.EmailField(unique=True)
+    fecha_suscripcion = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.nombre} <{self.email}>"
 
 class Evento(models.Model):
     titulo = models.CharField(max_length=200)

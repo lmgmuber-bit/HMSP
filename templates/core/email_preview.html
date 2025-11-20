@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Previsualización de Correo HMSP</title>
+    <style>
+        body { background: #f5f5f5; color: #222; font-family: Arial, sans-serif; }
+        .container { background: #fff; border-radius: 8px; max-width: 600px; margin: 30px auto; padding: 24px; box-shadow: 0 2px 8px #e3f2fd; }
+        h1 { color: #1976d2; }
+        .btn { background: #1976d2; color: #fff; padding: 10px 18px; border-radius: 4px; text-decoration: none; display: inline-block; margin-top: 16px; }
+        .img-evento, .img-noticia { max-width: 100%; border-radius: 6px; margin-bottom: 16px; }
+        .footer { font-size: 12px; color: #888; margin-top: 32px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% if logo_url %}
+            <img src="{{ logo_url }}" alt="Logo HMSP" style="max-height:60px; margin-bottom:16px;" />
+        {% endif %}
+        <h1>{{ titulo }}</h1>
+        {% if suscriptor %}
+            <p>Hola {{ suscriptor.nombre }}, te informamos este nuevo evento:</p>
+        {% endif %}
+        {% if imagen_url %}
+            <img src="{{ imagen_url }}" alt="Imagen" class="img-evento" />
+        {% endif %}
+        <p><strong>Fecha:</strong> {{ fecha }}</p>
+        <p><strong>Ubicación:</strong> {{ ubicacion }}</p>
+        <p>{{ descripcion }}</p>
+        <a href="{{ url }}" class="btn">Ver más</a>
+        <div class="footer">
+            Recibes este correo porque te suscribiste a HMSP.<br>
+            <a href="https://hmsp.org/suscripcion/">Cancelar suscripción</a>
+        </div>
+    </div>
+</body>
+</html>
