@@ -21,4 +21,5 @@ urlpatterns = [
     path('email-preview/', views.email_preview, name='email_preview'),
     path('email-preview-video/', views.email_preview_video, name='email_preview_video'),
     path('cancelar-suscripcion/', views.cancelar_suscripcion, name='cancelar_suscripcion'),
+    path('suscripcion/cancelar/', views.cancelar_suscripcion_auto, name='cancelar_suscripcion_auto'),
 ]

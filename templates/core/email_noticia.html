@@ -26,13 +26,17 @@
             <p>¡Esperamos que te encuentres muy bien! Nos alegra poder compartir contigo esta nueva noticia. Gracias por ser parte de la comunidad HMSP.</p>
         {% endif %}
         {% if noticia.imagen %}
-            <img src="https://hmsp.cl{{ noticia.imagen.url }}" alt="Imagen de la noticia" class="img-noticia" />
+            <img src="http://hmsp.cl{{ noticia.imagen.url }}" alt="Imagen de la noticia" class="img-noticia" />
+        {% endif %}
+        {% if suscriptor %}
+            <p>Hola {{ suscriptor.nombre }},</p>
+            <p>¡Esperamos que te encuentres muy bien! Nos alegra poder compartir contigo esta nueva noticia. Gracias por ser parte de la comunidad HMSP.</p>
         {% endif %}
         <p>{{ noticia.contenido|linebreaks }}</p>
         <a href="https://hmsp.cl/noticias/{{ noticia.slug }}/" class="btn">Ver noticia</a>
         <div class="footer">
             Recibes este correo porque te suscribiste a HMSP.<br>
-            <a href="https://hmsp.cl/suscripcion/">Cancelar suscripción</a>
+            <a href="http://hmsp.cl/suscripcion/cancelar/?email={{ suscriptor.email }}">Cancelar suscripción</a>
         </div>
     </div>
 </body>

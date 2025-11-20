@@ -1,3 +1,6 @@
+/* Título solo mobile */
+
+/* El texto junto al logo en mobile ya está en el navbar, no se requiere el bloque anterior. */
 .quick-links .content-card {
     position: relative;
     background: #fff;

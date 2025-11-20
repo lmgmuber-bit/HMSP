@@ -21,12 +21,12 @@
         </div>
         {% endif %}
         <h1>Nuevo Evento: {{ evento.titulo }}</h1>
-        {% if suscriptor %}
-              <p>Hola {{ suscriptor.nombre }},</p>
-              <p>¡Esperamos que te encuentres muy bien! Nos alegra poder compartir contigo este nuevo evento. Gracias por ser parte de la comunidad HMSP.</p>
-        {% endif %}
         {% if evento.imagen %}
-            <img src="{{ evento.imagen.url }}" alt="Imagen del evento" class="img-evento" />
+            <img src="http://hmsp.cl{{ evento.imagen.url }}" alt="Imagen del evento" class="img-evento" />
+        {% endif %}
+        {% if suscriptor %}
+            <p>Hola {{ suscriptor.nombre }},</p>
+            <p>¡Esperamos que te encuentres muy bien! Nos alegra poder compartir contigo este nuevo evento. Gracias por ser parte de la comunidad HMSP.</p>
         {% endif %}
         <p><strong>Fecha:</strong> {{ evento.fecha|date:"d/m/Y H:i" }}</p>
         <p><strong>Ubicación:</strong> {{ evento.ubicacion }}</p>
@@ -34,7 +34,7 @@
         <a href="https://hmsp.cl/eventos/{{ evento.slug }}/" class="btn">Ver evento</a>
         <div class="footer">
             Recibes este correo porque te suscribiste a HMSP.<br>
-            <a href="{{ url_cancelar }}">Cancelar suscripción</a>
+                <a href="http://hmsp.cl/suscripcion/cancelar/?email={{ suscriptor.email }}">Cancelar suscripción</a>
         </div>
     </div>
 </body>

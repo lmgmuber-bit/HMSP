@@ -78,21 +78,20 @@ class EventoAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
         if not change:
-            suscriptores = Suscripcion.objects.values_list('email', flat=True)
-            if suscriptores:
-                    html_content = render_evento_email(obj)
-                    subject = f"HMSP - Nuevo evento: {obj.titulo}"
-                    from_email = settings.DEFAULT_FROM_EMAIL
-                    msg = EmailMultiAlternatives(
-                        subject=subject,
-                        body=f"Se ha publicado un nuevo evento en HMSP: {obj.titulo}\n\n{obj.descripcion}",
-                        from_email=from_email,
-                        to=[],
-                        bcc=list(suscriptores),
-                        headers={"List-Unsubscribe": "<https://hmsp.cl/suscripcion/>"}
-                    )
-                    msg.attach_alternative(html_content, "text/html")
-                    msg.send(fail_silently=True)
+            for suscriptor in Suscripcion.objects.all():
+                html_content = render_evento_email(obj, suscriptor)
+                subject = f"HMSP - Nuevo evento: {obj.titulo}"
+                from_email = settings.DEFAULT_FROM_EMAIL
+                msg = EmailMultiAlternatives(
+                    subject=subject,
+                    body=f"Se ha publicado un nuevo evento en HMSP: {obj.titulo}\n\n{obj.descripcion}",
+                    from_email=from_email,
+                    to=[suscriptor.email],
+                    bcc=[],
+                    headers={"List-Unsubscribe": f"<https://hmsp.cl/suscripcion/cancelar/?email={suscriptor.email}>"}
+                )
+                msg.attach_alternative(html_content, "text/html")
+                msg.send(fail_silently=True)
 
 @admin.register(Testimonio)
 class TestimonioAdmin(admin.ModelAdmin):
@@ -146,21 +145,20 @@ class NoticiaAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
         if not change:
-            suscriptores = Suscripcion.objects.values_list('email', flat=True)
-            if suscriptores:
-                    html_content = render_noticia_email(obj)
-                    subject = f"HMSP - Nueva noticia: {obj.titulo}"
-                    from_email = settings.DEFAULT_FROM_EMAIL
-                    msg = EmailMultiAlternatives(
-                        subject=subject,
-                        body=f"Se ha publicado una nueva noticia en HMSP: {obj.titulo}\n\n{obj.contenido[:200]}...",
-                        from_email=from_email,
-                        to=[],
-                        bcc=list(suscriptores),
-                        headers={"List-Unsubscribe": "<https://hmsp.cl/suscripcion/>"}
-                    )
-                    msg.attach_alternative(html_content, "text/html")
-                    msg.send(fail_silently=True)
+            for suscriptor in Suscripcion.objects.all():
+                html_content = render_noticia_email(obj, suscriptor)
+                subject = f"HMSP - Nueva noticia: {obj.titulo}"
+                from_email = settings.DEFAULT_FROM_EMAIL
+                msg = EmailMultiAlternatives(
+                    subject=subject,
+                    body=f"Se ha publicado una nueva noticia en HMSP: {obj.titulo}\n\n{obj.contenido[:200]}...",
+                    from_email=from_email,
+                    to=[suscriptor.email],
+                    bcc=[],
+                    headers={"List-Unsubscribe": f"<https://hmsp.cl/suscripcion/cancelar/?email={suscriptor.email}>"}
+                )
+                msg.attach_alternative(html_content, "text/html")
+                msg.send(fail_silently=True)
 
 @admin.register(ConfiguracionSitio)
 class ConfiguracionSitioAdmin(admin.ModelAdmin):

@@ -1,3 +1,17 @@
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from .models import Suscripcion
+# Vista para cancelar suscripción automáticamente
+def cancelar_suscripcion_auto(request):
+    email = request.GET.get('email')
+    if email:
+        suscripcion = Suscripcion.objects.filter(email=email).first()
+        if suscripcion:
+            suscripcion.delete()
+            return render(request, 'core/cancelar_confirmacion.html', {'email': email})
+        else:
+            return render(request, 'core/cancelar_confirmacion.html', {'email': email, 'not_found': True})
+    return HttpResponse('Solicitud inválida', status=400)
 # --- Cancelar suscripción ---
 from django.http import HttpResponseRedirect
 from django.contrib import messages
