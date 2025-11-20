@@ -422,13 +422,12 @@ class Apostolado(models.Model):
     slug = models.SlugField(unique=True, blank=True)
     descripcion_corta = models.TextField(max_length=300, verbose_name='Descripción Corta', help_text='Breve descripción para el menú')
     descripcion = models.TextField(verbose_name='Descripción Completa')
-    imagen = models.FileField(
+    imagen = models.ImageField(
         upload_to='apostolados/',
         blank=True,
         null=True,
         verbose_name='Imagen',
-        help_text='Imagen representativa del apostolado (Formatos: JPG, PNG, SVG. Recomendado: 800x600px, máx 2MB)',
-        validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png', 'svg'])]
+        help_text='ESPECIFICACIONES: Dimensiones: 800x600px (recomendado). Formato: JPG, PNG, SVG. Máx 2MB.'
     )
     orden = models.IntegerField(default=0, verbose_name='Orden', help_text='Orden de aparición en el menú (menor número = primero)')
     activo = models.BooleanField(default=True, verbose_name='Activo')

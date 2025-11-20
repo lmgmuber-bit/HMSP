@@ -5,6 +5,8 @@
 - [Entorno Producción (VPS Hostinger)](#entorno-producción-vps-hostinger)
 - [Diferencias Principales](#diferencias-principales)
 - [Comandos Útiles](#comandos-útiles)
+- [Documentación para el Usuario Web (Frontend)](#-documentación-para-el-usuario-web-frontend)
+- [Documentación para el Usuario del Panel de Admin](#-documentación-para-el-usuario-del-panel-de-admin)
 
 ---
 
@@ -136,17 +138,12 @@ python manage.py createsuperuser
 
 #### **Django Settings (`settings_prod.py`)**
 ```python
-DEBUG = False
-ALLOWED_HOSTS = ['hmsp.cl', 'www.hmsp.cl', '72.61.132.193']
-CSRF_TRUSTED_ORIGINS = [
-    'http://hmsp.cl', 
-    'http://www.hmsp.cl', 
-    'http://72.61.132.193',
-    'https://hmsp.cl', 
-    'https://www.hmsp.cl'
-]
+from hmsp.settings import *
+import os
 
-# Base de datos MySQL
+DEBUG = True  # Cambia a False en producción
+ALLOWED_HOSTS = ['hmsp.cl', 'www.hmsp.cl', '72.61.132.193']
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -155,17 +152,39 @@ DATABASES = {
         'PASSWORD': '0308Luis$',
         'HOST': 'localhost',
         'PORT': '3306',
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+            'charset': 'utf8mb4',
+        }
     }
 }
 
-# Seguridad
-SECURE_SSL_REDIRECT = False  # Cloudflare maneja SSL
-SESSION_COOKIE_SECURE = False
-CSRF_COOKIE_SECURE = False
+CSRF_TRUSTED_ORIGINS = [
+    'https://hmsp.cl',
+    'https://www.hmsp.cl',
+]
 
-# Archivos estáticos
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-cambiar-en-produccion-2024')
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = False
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+X_FRAME_OPTIONS = 'DENY'
+
 STATIC_ROOT = '/home/hmsp/proyecto/staticfiles/'
 MEDIA_ROOT = '/home/hmsp/proyecto/media/'
+STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.hostinger.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'contacto@hmsp.cl'
+EMAIL_HOST_PASSWORD = 'At6TJigY?jQ&Dqx'
+DEFAULT_FROM_EMAIL = 'contacto@hmsp.cl'
 ```
 
 #### **Gunicorn (`start_gunicorn.sh`)**
@@ -474,6 +493,106 @@ curl -I -H "Host: hmsp.cl" http://localhost
 - Puerto: 587 (TLS)
 - Usuario: contacto@hmsp.cl
 - Configurado en `settings_prod.py`
+
+---
+
+## 👤 Documentación para el Usuario Web (Frontend)
+
+### Acceso al sitio
+- **URL pública:** [https://hmsp.cl](https://hmsp.cl)
+- **Navegación:**
+  - Menú principal con acceso a: Inicio, Apostolados, Noticias, Eventos, Testimonios, Contacto, Recursos.
+  - Cada sección tiene su propia vista de detalle.
+- **Subida de imágenes:** Solo disponible para administradores en el panel de admin.
+- **Formulario de contacto:** Disponible para cualquier usuario, requiere completar nombre, email y mensaje.
+- **Idiomas:** Español (traducción automática en algunos textos).
+- **Seguridad:**
+  - El sitio usa HTTPS (Cloudflare).
+  - Los datos enviados por formularios están protegidos por CSRF.
+
+### Permisos del usuario web
+- Puede navegar y ver todo el contenido público.
+- Puede enviar mensajes de contacto.
+- No puede modificar, eliminar ni subir contenido.
+
+---
+
+## 🛡️ Documentación para el Usuario del Panel de Admin
+
+### Acceso al panel de administración
+- **URL:** [https://hmsp.cl/admin/](https://hmsp.cl/admin/)
+- **Credenciales:** Proporcionadas por el administrador del sistema.
+- **Recuperación de contraseña:** Usar la opción "¿Olvidó su contraseña?" en el login.
+
+### Permisos y roles
+- **Superusuario:**
+  - Acceso total a todas las secciones y modelos.
+  - Puede crear, editar, eliminar y aprobar contenido (apostolados, eventos, noticias, testimonios, oraciones, usuarios).
+  - Puede gestionar usuarios y permisos.
+- **Staff:**
+  - Acceso limitado según permisos asignados.
+  - Puede editar solo los modelos permitidos por el superusuario.
+
+### Funcionalidades del panel
+- **Apostolados:** Crear, editar, eliminar y subir imágenes.
+- **Eventos:** Crear, editar, eliminar y subir imágenes/videos.
+- **Noticias:** Crear, editar, eliminar y subir imágenes.
+- **Testimonios:** Crear, editar, eliminar y subir imágenes.
+- **Oraciones:** Crear, editar, eliminar.
+- **Configuración del sitio:** Editar textos, imágenes y enlaces generales.
+- **Mensajes de contacto:** Solo lectura, no se pueden crear desde el admin.
+- **Recursos:** Editar títulos, textos e imágenes.
+
+### Seguridad y buenas prácticas
+- No compartir credenciales de admin.
+- Usar contraseñas seguras y cambiarlas periódicamente.
+- Cerrar sesión después de usar el panel.
+- No subir archivos de gran tamaño ni formatos no permitidos.
+- Revisar los logs y notificaciones de errores en el panel.
+
+---
+
+## 🗂️ Diagrama de flujo para el usuario web (frontend)
+
+```mermaid
+flowchart TD
+    A[Inicio] --> B[Apostolados]
+    A --> C[Noticias]
+    A --> D[Eventos]
+    A --> E[Testimonios]
+    A --> F[Recursos]
+    A --> G[Contacto]
+    B --> B1[Detalle Apostolado]
+    C --> C1[Detalle Noticia]
+    D --> D1[Detalle Evento]
+    E --> E1[Detalle Testimonio]
+    G --> G1[Formulario de contacto]
+    G1 --> H[Mensaje enviado]
+```
+
+---
+
+## 🗂️ Diagrama de flujo para el usuario del panel de admin
+
+```mermaid
+flowchart TD
+    AA[Login Admin] --> AB[Dashboard]
+    AB --> AC[Apostolados]
+    AB --> AD[Eventos]
+    AB --> AE[Noticias]
+    AB --> AF[Testimonios]
+    AB --> AG[Oraciones]
+    AB --> AH[Configuración Sitio]
+    AB --> AI[Mensajes de Contacto]
+    AC --> AC1[Crear/Editar/Eliminar Apostolado]
+    AD --> AD1[Crear/Editar/Eliminar Evento]
+    AE --> AE1[Crear/Editar/Eliminar Noticia]
+    AF --> AF1[Crear/Editar/Eliminar Testimonio]
+    AG --> AG1[Crear/Editar/Eliminar Oración]
+    AH --> AH1[Editar textos, imágenes, enlaces]
+    AI --> AI1[Leer mensajes]
+    AB --> AJ[Gestión de usuarios y permisos]
+```
 
 ---
 

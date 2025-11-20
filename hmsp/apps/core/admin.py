@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django import forms
 from .models import Evento, Testimonio, Oracion, Noticia, ConfiguracionSitio, MensajeContacto, Apostolado
 
 @admin.register(Evento)
@@ -185,13 +186,12 @@ class ApostoladoAdmin(admin.ModelAdmin):
     list_editable = ('orden', 'activo')
     prepopulated_fields = {'slug': ('titulo',)}
     fieldsets = (
-        ('Información Básica', {
-            'fields': ('titulo', 'slug', 'descripcion_corta', 'descripcion', 'imagen'),
-            'description': '<strong>📋 INFORMACIÓN DEL APOSTOLADO:</strong><br>'
+        ('Información del Apostolado', {
+            'fields': ('titulo', 'slug', 'descripcion_corta', 'descripcion', 'imagen', 'orden', 'activo'),
+            'description': '<strong>📸 ESPECIFICACIONES DE IMAGEN:</strong><br>'
+                          '📐 <strong>Dimensiones:</strong> 800x600px (recomendado)<br>'
+                          '📄 <strong>Formato:</strong> JPG, PNG, SVG<br>'
+                          '💾 <strong>Tamaño:</strong> Máximo 2MB<br>'
                           '<em>El título aparecerá en el menú. La descripción corta se usa como resumen.</em>'
-        }),
-        ('Configuración', {
-            'fields': ('orden', 'activo'),
-            'description': 'Configure el orden de aparición en el menú (menor número aparece primero) y si está activo.'
         }),
     )
