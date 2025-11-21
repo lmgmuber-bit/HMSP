@@ -9,21 +9,43 @@
         {% if object_list %}
             {% for oracion in object_list %}
                 <div class="col-md-6 mb-4">
-                    <div class="card h-100">
-                        <div class="card-body">
+                    <div class="card h-100 border border-info" style="border-width:2px;">
+                        <div class="card-body d-flex flex-column justify-content-between">
                             <h5 class="card-title">{{ oracion.titulo }}</h5>
-                            <p class="card-text">{{ oracion.contenido|linebreaks }}</p>
-                            {% if oracion.autor %}
-                                <p class="text-muted">
-                                    <small>Autor: {{ oracion.autor }}</small>
-                                </p>
-                            {% endif %}
-                            {% if oracion.categoria %}
-                                <span class="badge bg-primary">{{ oracion.categoria }}</span>
-                            {% endif %}
+                            <div class="d-flex align-items-center gap-2 mb-3">
+                                {% if oracion.categoria %}
+                                    <span class="badge bg-info text-info-emphasis d-flex align-items-center justify-content-center" style="height:32px; min-width:80px; font-size:0.9rem; padding:0 16px; font-weight:600;">{{ oracion.categoria }}</span>
+                                {% endif %}
+                                <button type="button" class="btn btn-outline-info d-flex align-items-center justify-content-center ms-2" style="height:32px; min-width:80px; font-size:0.9rem; padding:0 16px; font-weight:600;" data-bs-toggle="modal" data-bs-target="#oracionModal{{ oracion.id }}">
+                                    Ver más
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <!-- Modal para ver la oración completa -->
+                                <div class="modal fade" id="oracionModal{{ oracion.id }}" tabindex="-1" aria-labelledby="oracionModalLabel{{ oracion.id }}" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content border border-info" style="border-width:2px;">
+                                            <div class="modal-header bg-info text-white justify-content-center" style="background-color:#0dcaf0; color:white;">
+                                                <h5 class="modal-title w-100 text-center" id="oracionModalLabel{{ oracion.id }}">{{ oracion.titulo }}</h5>
+                                                <button type="button" class="btn-close btn-close-white position-absolute end-0 me-3" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>{{ oracion.contenido|linebreaks }}</p>
+                                                {% if oracion.autor %}
+                                                        <p class="text-muted"><small>Autor: {{ oracion.autor }}</small></p>
+                                                {% endif %}
+                                                {% if oracion.categoria %}
+                                                        <span class="badge bg-info text-info-emphasis py-2 px-3 fs-6" style="font-size:1rem;">{{ oracion.categoria }}</span>
+                                                {% endif %}
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
             {% endfor %}
         {% else %}
             <div class="col-12">
@@ -31,7 +53,6 @@
             </div>
         {% endif %}
     </div>
-    
     <!-- Paginación -->
     {% if is_paginated %}
     <nav aria-label="Page navigation" class="mt-4">
@@ -41,13 +62,11 @@
                     <a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo; Anterior</a>
                 </li>
             {% endif %}
-            
             {% for num in page_obj.paginator.page_range %}
                 <li class="page-item {% if page_obj.number == num %}active{% endif %}">
                     <a class="page-link" href="?page={{ num }}">{{ num }}</a>
                 </li>
             {% endfor %}
-            
             {% if page_obj.has_next %}
                 <li class="page-item">
                     <a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente &raquo;</a>
