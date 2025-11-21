@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía del Administrador - HMSP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .slide-enter { animation: slideIn 0.4s ease-out; }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-bg { transition: background 0.5s ease; }
+    </style>
+</head>
+<body class="fade-bg bg-gradient-to-br from-slate-700 to-slate-900 min-h-screen p-4" id="mainBody">
+    <div class="max-w-4xl mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-4">
+            <span class="bg-yellow-400 text-yellow-900 px-3 py-1 rounded-full text-xs font-bold">🔐 Panel Administrador</span>
+        </div>
+        
+        <!-- Main Card -->
+        <div class="bg-white rounded-2xl shadow-2xl overflow-hidden slide-enter" id="slideCard">
+            <!-- Slide Header -->
+            <div class="p-6 text-white bg-gradient-to-r from-slate-700 to-slate-900" id="slideHeader">
+                <div class="flex items-center gap-4">
+                    <div class="bg-white/20 p-3 rounded-xl" id="slideIcon"></div>
+                    <div>
+                        <h1 class="text-2xl font-bold" id="slideTitle"></h1>
+                        <p class="text-white/80 text-sm" id="slideSubtitle"></p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Content -->
+            <div class="p-6" id="slideContent"></div>
+            
+            <!-- Navigation -->
+            <div class="px-6 pb-4 flex items-center justify-between">
+                <button onclick="prevSlide()" class="flex items-center gap-1 px-4 py-2 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors text-sm">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                    Anterior
+                </button>
+                <div class="flex gap-1" id="dots"></div>
+                <button onclick="nextSlide()" class="flex items-center gap-1 px-4 py-2 bg-yellow-500 text-yellow-900 rounded-lg hover:bg-yellow-400 transition-colors text-sm font-medium">
+                    Siguiente
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <p class="text-center text-white/70 text-xs mt-4" id="footer"></p>
+    </div>
+
+<script>
+const icons = {
+    lock: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>`,
+    dashboard: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"></path></svg>`,
+    calendar: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>`,
+    news: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg>`,
+    message: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>`,
+    users: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>`,
+    settings: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>`,
+    image: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>`,
+    shield: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>`
+};
+
+const slides = [
+    {
+        title: "Panel de Administración",
+        subtitle: "Django Admin - HMSP",
+        color: "from-slate-700 to-slate-900",
+        icon: "lock",
+        content: `
+            <p class="text-gray-600 mb-4">Sistema de gestión completo para administrar todo el contenido del sitio web.</p>
+            <div class="space-y-3">
+                <div class="bg-slate-100 p-3 rounded-lg">
+                    <p class="text-sm font-mono text-slate-700">URL de acceso: <span class="text-blue-600 font-bold">/admin/</span></p>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="bg-green-50 p-3 rounded-lg">
+                        <p class="font-medium text-sm text-gray-800 mb-2">✅ Requisitos:</p>
+                        <p class="text-xs text-gray-600">• Usuario autorizado</p>
+                        <p class="text-xs text-gray-600">• Contraseña segura</p>
+                    </div>
+                    <div class="bg-amber-50 p-3 rounded-lg">
+                        <p class="font-medium text-sm text-gray-800 mb-2">⚠️ Seguridad:</p>
+                        <p class="text-xs text-gray-600">• No compartir credenciales</p>
+                        <p class="text-xs text-gray-600">• Cerrar sesión al terminar</p>
+                        <p class="text-xs text-gray-600">• Usar contraseñas fuertes</p>
+                    </div>
+                </div>
+            </div>`
+    },
+    {
+        title: "Dashboard Principal",
+        subtitle: "Centro de control del sitio",
+        color: "from-cyan-700 to-cyan-900",
+        icon: "dashboard",
+        content: `
+            <p class="text-gray-600 mb-4">Vista general con acceso rápido a todas las secciones:</p>
+            <div class="grid grid-cols-3 gap-2">
+                ${[
+                    {n:"Apostolados",a:["Añadir","Modificar"]},
+                    {n:"Eventos",a:["Añadir","Modificar"]},
+                    {n:"Noticias",a:["Añadir","Modificar"]},
+                    {n:"Oraciones",a:["Añadir","Modificar"]},
+                    {n:"Testimonios",a:["Añadir","Modificar"]},
+                    {n:"Mensajes",a:["Modificar"]}
+                ].map(m => `
+                    <div class="bg-cyan-50 p-3 rounded-lg hover:bg-cyan-100 transition-colors">
+                        <p class="font-medium text-sm text-gray-800">${m.n}</p>
+                        <div class="flex flex-wrap gap-1 mt-1">
+                            ${m.a.map(a => `<span class="bg-cyan-200 text-cyan-800 px-1 rounded text-xs">${a}</span>`).join('')}
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+            <div class="mt-3 bg-gray-100 p-2 rounded-lg text-center">
+                <p class="text-xs text-gray-600">📊 Panel lateral muestra <strong>Acciones Recientes</strong></p>
+            </div>`
+    },
+    {
+        title: "Gestión de Eventos",
+        subtitle: "Crear y administrar actividades",
+        color: "from-orange-600 to-red-700",
+        icon: "calendar",
+        content: `
+            <p class="text-gray-600 mb-4">Administra todos los eventos del sitio:</p>
+            <div class="space-y-3">
+                <div class="bg-orange-50 p-3 rounded-lg">
+                    <p class="font-medium text-sm mb-2">📝 Campos del formulario:</p>
+                    <div class="flex flex-wrap gap-2">
+                        ${["Título *","Descripción *","Fecha/Hora *","Ubicación *","Imagen"].map(f => 
+                            `<span class="px-2 py-1 rounded text-xs ${f.includes('*') ? 'bg-red-100 text-red-700' : 'bg-gray-100 text-gray-600'}">${f}</span>`
+                        ).join('')}
+                    </div>
+                </div>
+                <div class="bg-gray-50 p-3 rounded-lg">
+                    <p class="font-medium text-sm mb-2">🎬 Opciones Multimedia:</p>
+                    <div class="space-y-1 text-xs">
+                        <div class="flex justify-between"><span class="font-medium">Ninguno</span><span class="text-gray-500">Solo imagen</span></div>
+                        <div class="flex justify-between"><span class="font-medium">YouTube</span><span class="text-gray-500">Pegar URL del video</span></div>
+                        <div class="flex justify-between"><span class="font-medium">Video Local</span><span class="text-gray-500">Subir MP4 (máx 100MB)</span></div>
+                    </div>
+                </div>
+                <p class="text-xs text-center text-gray-500 bg-yellow-50 p-2 rounded">💡 Preferencia de visualización: elegir mostrar imagen o video en el carrusel</p>
+            </div>`
+    },
+    {
+        title: "Gestión de Noticias",
+        subtitle: "Publicar actualizaciones",
+        color: "from-blue-600 to-indigo-700",
+        icon: "news",
+        content: `
+            <p class="text-gray-600 mb-4">Crea y edita noticias para mantener informada a la comunidad:</p>
+            <div class="space-y-3">
+                <div class="grid grid-cols-2 gap-2">
+                    ${[{n:"Marcar como destacada",i:"⭐"},{n:"Programar publicación",i:"📅"},{n:"Gestionar imágenes",i:"🖼️"},{n:"Estado de publicación",i:"✅"}].map(o => 
+                        `<div class="bg-blue-50 p-3 rounded-lg flex items-center gap-2"><span class="text-xl">${o.i}</span><span class="text-sm text-gray-700">${o.n}</span></div>`
+                    ).join('')}
+                </div>
+                <div class="bg-indigo-50 p-3 rounded-lg">
+                    <p class="font-medium text-sm mb-2">📷 Requisitos de imagen:</p>
+                    <div class="flex justify-between text-xs text-gray-600">
+                        <span>📁 JPG o PNG</span>
+                        <span>📏 1600x900 px (16:9)</span>
+                        <span>💾 Máx 30MB</span>
+                    </div>
+                </div>
+            </div>`
+    },
+    {
+        title: "Testimonios y Oraciones",
+        subtitle: "Contenido espiritual",
+        color: "from-purple-600 to-pink-700",
+        icon: "message",
+        content: `
+            <p class="text-gray-600 mb-4">Administra el contenido espiritual del sitio:</p>
+            <div class="grid grid-cols-2 gap-3">
+                <div class="bg-purple-50 p-4 rounded-xl">
+                    <p class="font-bold text-sm text-purple-800 mb-2">💬 Testimonios</p>
+                    <p class="text-xs text-gray-600 mb-1">• Revisar nuevos</p>
+                    <p class="text-xs text-gray-600 mb-1">• Aprobar/Rechazar</p>
+                    <p class="text-xs text-gray-600 mb-1">• Editar contenido</p>
+                    <p class="text-xs text-gray-600">• Verificar información</p>
+                </div>
+                <div class="bg-pink-50 p-4 rounded-xl">
+                    <p class="font-bold text-sm text-pink-800 mb-2">🙏 Oraciones</p>
+                    <div class="flex flex-wrap gap-1 mb-2">
+                        ${["Personal","Familia","Sanación","Intercesión"].map(c => 
+                            `<span class="bg-pink-200 text-pink-800 px-1 rounded text-xs">${c}</span>`
+                        ).join('')}
+                    </div>
+                    <p class="text-xs text-gray-600">• Agregar / Editar</p>
+                    <p class="text-xs text-gray-600">• Organizar categorías</p>
+                    <p class="text-xs text-gray-600">• Activar/Desactivar</p>
+                </div>
+            </div>`
+    },
+    {
+        title: "Gestión de Usuarios",
+        subtitle: "Roles y permisos",
+        color: "from-emerald-600 to-teal-700",
+        icon: "users",
+        content: `
+            <p class="text-gray-600 mb-4">Administra quién puede acceder y qué puede hacer:</p>
+            <div class="space-y-2">
+                <div class="p-3 rounded-lg bg-red-100 text-red-800 border-l-4 border-red-500">
+                    <p class="font-bold text-sm">👑 Superadministrador</p>
+                    <p class="text-xs">Acceso total, gestión de usuarios y sistema</p>
+                </div>
+                <div class="p-3 rounded-lg bg-orange-100 text-orange-800 border-l-4 border-orange-500">
+                    <p class="font-bold text-sm">🔧 Administrador</p>
+                    <p class="text-xs">Gestión de contenido, sin configuraciones críticas</p>
+                </div>
+                <div class="p-3 rounded-lg bg-blue-100 text-blue-800 border-l-4 border-blue-500">
+                    <p class="font-bold text-sm">✏️ Editor</p>
+                    <p class="text-xs">Crear y editar contenido únicamente</p>
+                </div>
+            </div>
+            <div class="mt-3 bg-gray-100 p-2 rounded text-center">
+                <p class="text-xs text-gray-600">Ir a <strong>Usuarios → Agregar Usuario</strong> para crear nuevos</p>
+            </div>`
+    },
+    {
+        title: "Configuración del Sitio",
+        subtitle: "Personalización general",
+        color: "from-gray-600 to-gray-800",
+        icon: "settings",
+        content: `
+            <p class="text-gray-600 mb-4">Ajusta la configuración global del sitio web:</p>
+            <div class="space-y-2">
+                ${[
+                    {s:"📍 Información de Contacto",i:["Dirección","Teléfonos","Correos"]},
+                    {s:"🌐 Redes Sociales",i:["Facebook","Enlaces externos"]},
+                    {s:"📁 Medios",i:["Tamaños máximos","Tipos permitidos","Optimización"]}
+                ].map(c => `
+                    <div class="bg-gray-50 p-3 rounded-lg">
+                        <p class="font-medium text-sm text-gray-800">${c.s}</p>
+                        <div class="flex flex-wrap gap-1 mt-1">
+                            ${c.i.map(item => `<span class="bg-gray-200 text-gray-700 px-2 py-0.5 rounded text-xs">${item}</span>`).join('')}
+                        </div>
+                    </div>
+                `).join('')}
+            </div>`
+    },
+    {
+        title: "Requisitos de Imágenes",
+        subtitle: "Especificaciones técnicas",
+        color: "from-pink-600 to-rose-700",
+        icon: "image",
+        content: `
+            <p class="text-gray-600 mb-4">Sigue estas recomendaciones para mejores resultados:</p>
+            <div class="overflow-x-auto mb-3">
+                <table class="w-full text-xs">
+                    <thead class="bg-pink-100">
+                        <tr>
+                            <th class="p-2 text-left rounded-tl-lg">Tipo</th>
+                            <th class="p-2 text-left">Dimensiones</th>
+                            <th class="p-2 text-left">Ratio/Formato</th>
+                            <th class="p-2 text-left rounded-tr-lg">Máximo</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white">
+                        <tr class="border-b"><td class="p-2 font-medium">Eventos</td><td class="p-2">1200x800 px</td><td class="p-2">3:2</td><td class="p-2">30MB</td></tr>
+                        <tr class="border-b"><td class="p-2 font-medium">Noticias</td><td class="p-2">1600x900 px</td><td class="p-2">16:9</td><td class="p-2">30MB</td></tr>
+                        <tr><td class="p-2 font-medium">Videos</td><td class="p-2">1920x1080 px</td><td class="p-2">MP4/H.264</td><td class="p-2">100MB</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="flex flex-wrap gap-2">
+                ${["Usar imágenes nítidas","Evitar marcas de agua","Optimizar antes de subir","Preferir horizontales"].map(t => 
+                    `<span class="bg-pink-50 text-pink-700 px-2 py-1 rounded text-xs">💡 ${t}</span>`
+                ).join('')}
+            </div>`
+    },
+    {
+        title: "Seguridad y Respaldos",
+        subtitle: "Protege tu información",
+        color: "from-red-700 to-red-900",
+        icon: "shield",
+        content: `
+            <p class="text-gray-600 mb-4">Mantén el sistema seguro y con respaldos:</p>
+            <div class="grid grid-cols-2 gap-3 mb-3">
+                <div class="bg-red-50 p-3 rounded-lg">
+                    <p class="font-bold text-sm text-red-800 mb-2">🔑 Contraseñas</p>
+                    <p class="text-xs text-gray-600 mb-1">🔒 Cambiar cada 90 días</p>
+                    <p class="text-xs text-gray-600 mb-1">🔒 Mínimo 12 caracteres</p>
+                    <p class="text-xs text-gray-600">🔒 Usar caracteres especiales</p>
+                </div>
+                <div class="bg-red-50 p-3 rounded-lg">
+                    <p class="font-bold text-sm text-red-800 mb-2">💾 Respaldos</p>
+                    <p class="text-xs text-gray-600 mb-1">🔒 Automáticos diarios</p>
+                    <p class="text-xs text-gray-600 mb-1">🔒 Incluye BD y archivos</p>
+                    <p class="text-xs text-gray-600">🔒 Ubicación: /backups/</p>
+                </div>
+            </div>
+            <div class="bg-yellow-100 border-l-4 border-yellow-500 p-3 rounded-r-lg flex items-center gap-2">
+                <span class="text-xl">⚠️</span>
+                <p class="text-xs text-yellow-800 font-medium">Nunca compartir credenciales. Siempre cerrar sesión al terminar.</p>
+            </div>`
+    }
+];
+
+let current = 0;
+
+function updateSlide() {
+    const slide = slides[current];
+    const body = document.getElementById('mainBody');
+    const header = document.getElementById('slideHeader');
+    const card = document.getElementById('slideCard');
+    
+    body.className = `fade-bg bg-gradient-to-br ${slide.color} min-h-screen p-4`;
+    header.className = `bg-gradient-to-r ${slide.color} p-6 text-white`;
+    
+    document.getElementById('slideTitle').textContent = slide.title;
+    document.getElementById('slideSubtitle').textContent = slide.subtitle;
+    document.getElementById('slideIcon').innerHTML = icons[slide.icon];
+    document.getElementById('slideContent').innerHTML = slide.content;
+    document.getElementById('footer').textContent = `Diapositiva ${current + 1} de ${slides.length} • Panel Admin HMSP`;
+    
+    document.getElementById('dots').innerHTML = slides.map((_, i) => 
+        `<button onclick="goToSlide(${i})" class="w-2 h-2 rounded-full transition-all ${i === current ? 'bg-yellow-500 w-6' : 'bg-gray-300'}"></button>`
+    ).join('');
+    
+    card.classList.remove('slide-enter');
+    void card.offsetWidth;
+    card.classList.add('slide-enter');
+}
+
+function nextSlide() { current = (current + 1) % slides.length; updateSlide(); }
+function prevSlide() { current = (current - 1 + slides.length) % slides.length; updateSlide(); }
+function goToSlide(i) { current = i; updateSlide(); }
+
+updateSlide();
+</script>
+</body>
+</html>

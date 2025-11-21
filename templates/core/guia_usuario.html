@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía del Usuario - HMSP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .slide-enter { animation: slideIn 0.4s ease-out; }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-bg { transition: background 0.5s ease; }
+    </style>
+</head>
+<body class="fade-bg bg-gradient-to-br from-blue-600 to-blue-800 min-h-screen p-4" id="mainBody">
+    <div class="max-w-4xl mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-4">
+            <span class="bg-white/20 text-white px-3 py-1 rounded-full text-xs font-medium">👤 Guía del Usuario</span>
+        </div>
+        <!-- Main Card -->
+        <div class="bg-white rounded-2xl shadow-2xl overflow-hidden slide-enter" id="slideCard">
+            <!-- Slide Header -->
+            <div class="p-6 text-white" id="slideHeader">
+                <div class="flex items-center gap-4">
+                    <div class="bg-white/20 p-3 rounded-xl" id="slideIcon">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold" id="slideTitle">Bienvenido al Sitio Web</h1>
+                        <p class="text-white/80 text-sm" id="slideSubtitle">Hermanas Misioneras Servidoras de la Palabra</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Content -->
+            <div class="p-6" id="slideContent"></div>
+            <!-- Navigation -->
+            <div class="px-6 pb-4 flex items-center justify-between">
+                <button onclick="prevSlide()" class="flex items-center gap-1 px-4 py-2 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors text-sm">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                    Anterior
+                </button>
+                <div class="flex gap-1" id="dots"></div>
+                <button onclick="nextSlide()" class="flex items-center gap-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm">
+                    Siguiente
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                </button>
+            </div>
+        </div>
+        <!-- Footer -->
+        <!-- Enlace a inicio -->
+        <div class="text-center mt-6">
+            <a href="/" class="inline-block px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition-colors text-sm font-medium">Volver al inicio</a>
+        </div>
+        <!-- Footer -->
+        <p class="text-center text-white/70 text-xs mt-4" id="footer">Diapositiva 1 de 7 • hmsp.cl</p>
+    </div>
+<script>
+const slides = [
+    {
+        title: "Bienvenido al Sitio Web",
+        subtitle: "Hermanas Misioneras Servidoras de la Palabra",
+        color: "from-blue-600 to-blue-800",
+        icon: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>`,
+        content: `
+            <p class="text-gray-600 mb-4">Un espacio digital para compartir nuestra misión espiritual y conectar con la comunidad.</p>
+            <div class="grid grid-cols-2 gap-3">
+                ${["Eventos y actividades", "Recursos espirituales", "Comunidad de fe", "Información de contacto"].map(f => 
+                    `<div class="bg-blue-50 p-3 rounded-lg flex items-center gap-2"><span class="text-blue-600">✓</span><span class="text-sm text-gray-700">${f}</span></div>`
+                ).join('')}
+            </div>`
+    },
+    {
+        title: "Navegación Principal",
+        subtitle: "Accede fácilmente a todas las secciones",
+        color: "from-indigo-600 to-purple-700",
+        icon: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>`,
+        content: `
+            <p class="text-gray-600 mb-4">La barra superior te permite navegar por todo el sitio:</p>
+            <div class="grid grid-cols-2 gap-2">
+                ${[
+                    {n:"Inicio",d:"Página principal"},
+                    {n:"Eventos",d:"Calendario de actividades"},
+                    {n:"Testimonios",d:"Historias de transformación"},
+                    {n:"Oraciones",d:"Biblioteca de oraciones"},
+                    {n:"Noticias",d:"Actualizaciones"},
+                    {n:"Apostolados",d:"Misiones y servicios"}
+                ].map(i => `<div class="flex items-center gap-2 p-2 bg-gray-50 rounded-lg"><div><p class="font-medium text-sm text-gray-800">${i.n}</p><p class="text-xs text-gray-500">${i.d}</p></div></div>`).join('')}
+            </div>`
+    },
+    {
+        title: "Página de Inicio",
+        subtitle: "Tu punto de partida",
+        color: "from-emerald-600 to-teal-700",
+        icon: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>`,
+        content: `
+            <p class="text-gray-600 mb-4">La página principal te ofrece acceso rápido a todo el contenido:</p>
+            <div class="space-y-2">
+                <div class="p-3 rounded-lg bg-emerald-100 border-l-4 border-emerald-500"><p class="font-medium text-sm">Carrusel de Eventos</p><p class="text-xs text-gray-600">Eventos destacados con videos e imágenes</p></div>
+                <div class="p-3 rounded-lg bg-gray-50"><p class="font-medium text-sm">Enlaces Rápidos</p><p class="text-xs text-gray-600">Acceso directo a secciones principales</p></div>
+                <div class="p-3 rounded-lg bg-gray-50"><p class="font-medium text-sm">Noticias Recientes</p><p class="text-xs text-gray-600">Últimas 4 publicaciones</p></div>
+                <div class="p-3 rounded-lg bg-gray-50"><p class="font-medium text-sm">Control de Audio/Video</p><p class="text-xs text-gray-600">Activa o silencia fácilmente</p></div>
+            </div>`
+    },
+    {
+        title: "Eventos",
+        subtitle: "Calendario de actividades misioneras",
+        color: "from-orange-500 to-red-600",
+        icon: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>`,
+        content: `
+            <p class="text-gray-600 mb-4">Descubre y participa en nuestros encuentros espirituales:</p>
+            <div class="bg-orange-50 p-3 rounded-lg border-l-4 border-orange-500 mb-3">
+                <div class="flex justify-between items-start"><div><p class="font-bold text-gray-800">Dinámicas Matrimoniales</p><p class="text-sm text-gray-600">Retiros para parejas</p></div><span class="bg-orange-200 text-orange-800 px-2 py-1 rounded text-xs">29/11/2025</span></div>
+            </div>
+            <div class="flex flex-wrap gap-2">
+                <span class="bg-gray-100 px-2 py-1 rounded text-xs text-gray-600">📌 Filtros por fecha</span>
+                <span class="bg-gray-100 px-2 py-1 rounded text-xs text-gray-600">📌 Formularios de inscripción</span>
+                <span class="bg-gray-100 px-2 py-1 rounded text-xs text-gray-600">📌 Detalles completos</span>
+            </div>`
+    },
+    {
+        title: "Oraciones",
+        subtitle: "Biblioteca espiritual organizada",
+        color: "from-purple-600 to-pink-600",
+        icon: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>`,
+        content: `
+            <p class="text-gray-600 mb-4">Encuentra oraciones para cada momento de tu vida:</p>
+            <div class="grid grid-cols-2 gap-3">
+                ${[{n:"Personal",i:"🙏",d:"Oraciones individuales"},{n:"Familia",i:"👨‍👩‍👧‍👦",d:"Para el hogar"},{n:"Sanación",i:"💚",d:"Oraciones de salud"},{n:"Intercesión",i:"✨",d:"Por otros"}].map(c => 
+                    `<div class="bg-purple-50 p-4 rounded-xl text-center hover:scale-105 transition-transform cursor-pointer"><span class="text-3xl">${c.i}</span><p class="font-bold text-gray-800 mt-1">${c.n}</p><p class="text-xs text-gray-600">${c.d}</p></div>`
+                ).join('')}
+            </div>`
+    },
+    {
+        title: "Testimonios y Noticias",
+        subtitle: "Historias reales y actualizaciones",
+        color: "from-rose-600 to-red-700",
+        icon: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>`,
+        content: `
+            <p class="text-gray-600 mb-4">Conéctate con experiencias de fe y mantente informado:</p>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="bg-rose-50 p-4 rounded-xl"><h3 class="font-bold text-gray-800 mb-2">Testimonios</h3><p class="text-xs text-gray-600 mb-1">• Experiencias verificadas</p><p class="text-xs text-gray-600 mb-1">• Historias de transformación</p><p class="text-xs text-gray-600">• Ordenados por relevancia</p></div>
+                <div class="bg-rose-50 p-4 rounded-xl"><h3 class="font-bold text-gray-800 mb-2">Noticias</h3><p class="text-xs text-gray-600 mb-1">• Publicaciones cronológicas</p><p class="text-xs text-gray-600 mb-1">• Boletín mensual</p><p class="text-xs text-gray-600">• Compartir en redes</p></div>
+            </div>`
+    },
+    {
+        title: "Contacto",
+        subtitle: "Estamos aquí para ti",
+        color: "from-cyan-600 to-blue-700",
+        icon: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>`,
+        content: `
+            <p class="text-gray-600 mb-4">Múltiples formas de comunicarte con nosotras:</p>
+            <div class="space-y-2">
+                ${[{l:"Dirección",v:"Barros Arana 966, San Bernardo"},{l:"Teléfono",v:"+56 9 9981 7295"},{l:"Correo",v:"contacto@hmsp.cl"},{l:"Redes",v:"Facebook"}].map(c => 
+                    `<div class="flex justify-between items-center p-3 bg-cyan-50 rounded-lg"><span class="font-medium text-gray-700 text-sm">${c.l}</span><span class="text-cyan-700 text-sm">${c.v}</span></div>`
+                ).join('')}
+                <p class="text-center text-xs text-gray-500 mt-3 bg-gray-100 p-2 rounded">También puedes usar nuestro formulario de contacto o WhatsApp</p>
+            </div>`
+    }
+];
+
+let current = 0;
+
+function updateSlide() {
+    const slide = slides[current];
+    const body = document.getElementById('mainBody');
+    const header = document.getElementById('slideHeader');
+    const card = document.getElementById('slideCard');
+    
+    body.className = `fade-bg bg-gradient-to-br ${slide.color} min-h-screen p-4`;
+    header.className = `bg-gradient-to-r ${slide.color} p-6 text-white`;
+    
+    document.getElementById('slideTitle').textContent = slide.title;
+    document.getElementById('slideSubtitle').textContent = slide.subtitle;
+    document.getElementById('slideIcon').innerHTML = slide.icon;
+    document.getElementById('slideContent').innerHTML = slide.content;
+    document.getElementById('footer').textContent = `Diapositiva ${current + 1} de ${slides.length} • hmsp.cl`;
+    
+    // Update dots
+    document.getElementById('dots').innerHTML = slides.map((_, i) => 
+        `<button onclick="goToSlide(${i})" class="w-2 h-2 rounded-full transition-all ${i === current ? 'bg-blue-600 w-6' : 'bg-gray-300'}"></button>`
+    ).join('');
+    
+    card.classList.remove('slide-enter');
+    void card.offsetWidth;
+    card.classList.add('slide-enter');
+}
+
+function nextSlide() { current = (current + 1) % slides.length; updateSlide(); }
+function prevSlide() { current = (current - 1 + slides.length) % slides.length; updateSlide(); }
+function goToSlide(i) { current = i; updateSlide(); }
+
+updateSlide();
+</script>
+</body>
+</html>

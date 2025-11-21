@@ -1,3 +1,10 @@
+# Vista pública para la guía del administrador
+def guia_admin(request):
+    return render(request, 'core/guia_admin.html')
+# Vista pública para la guía del usuario
+from django.shortcuts import render
+def guia_usuario(request):
+    return render(request, 'core/guia_usuario.html')
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Suscripcion
